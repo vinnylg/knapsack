@@ -64,7 +64,7 @@ int main(int argc, char **argv){
     	keep[i]= malloc(max_weight * sizeof(int));
     }
 
-    printf("\n\n%d\n\n",knapsack(values,weights,n_obj,max_weight,bottom,keep));
+    printf("Max Value:%d\n",knapsack(values,weights,n_obj,max_weight,bottom,keep));
 	
     free(values);	
     free(weights);
