@@ -9,7 +9,7 @@
 int numb(int mwi){
     int n = 1;
     while(n%5!=0){
-        n=(rand()%mwi)+1;
+        n=rand() % mwi + 1;
     }
     return n;
 }
@@ -25,10 +25,10 @@ int main(int argc, char **argv){
     srand(time(NULL));
     int noi=atoi(argv[2]), mwi=atoi(argv[3]);
     fprintf(file,"%d %d\n",noi,mwi);
+    printf("%d %d\n",noi,mwi);
 
     for(int i=0; i<noi; i++){
-        fprintf(file,"%d %d\n",numb(mwi*(i+1)),numb(mwi));
-        printf("%d %d\n",numb(mwi*2),numb(mwi));
+        fprintf(file,"%d %d\n",numb(mwi),numb(mwi));
     }
 
     fclose(file);
