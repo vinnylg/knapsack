@@ -54,6 +54,6 @@ int main (){
 	}
 
 
-	unsigned int maior_valor = Knapsack(N_ITENS, objetos, C_MOCHILA);
+	unsigned int maior_valor = Knapsack(n_itens, objetos, c_mochila);
 	printf("----------------------------\n");
 	printf("Maior Valor Encontrado: %d\n",maior_valor);
