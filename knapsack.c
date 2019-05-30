@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
+#include <limits.h>
 
 #define ERROR(str){printf("%s\n",str); return -1;}
 
@@ -15,17 +16,17 @@ void printM(int **M, int n, int m){
         printf("\n");
 }
 
-int *cpRows(int *origin, int *destiny, int tam){
+size_t *cpRows(size_t *origin, size_t *destiny, int tam){
     for(int i=0; i<tam; i++)
         destiny[i]=origin[i];
 
     return destiny;
 }
 
-int knapsack(int *value, int *weight, int max_row, int max_col, int **V){
-	int w,                                          //peso iterativo 
-	    i,                                          //contador de itens
-        *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
+int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
+	int w,                                             //peso iterativo 
+	    i;                                             //contador de itens
+    size_t *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
     memset(zero,0,(max_col+1) * sizeof(int)); 
 
 	for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
@@ -67,18 +68,18 @@ int main(int argc, char **argv){
 
     fscanf(file,"%d %d\n",&n_obj,&max_weight);
     printf("%d items, knapsack size: %d\n",n_obj,max_weight);
-
+ 
     values = malloc((n_obj+1)*sizeof(int));
     weights = malloc((n_obj+1)*sizeof(int));
 
     read_file(file,values,weights,1); //le o arquivo e coloca apartir da posição 1, para deixar i igual o item 
     fclose(file);
 
-    int **bottom = malloc(2*sizeof(int *));  //it's needly only two rows
+    size_t **bottom = malloc(2*sizeof(size_t *));  //it's needly only two rows
                                             
     for(int i=0; i<2; i++){
-    	bottom[i]= malloc((max_weight+1) * sizeof(int));
-        memset(bottom[i],0,(max_weight+1) * sizeof(int));
+    	bottom[i]= malloc((max_weight+1) * sizeof(size_t));
+        memset(bottom[i],0,(max_weight+1) * sizeof(size_t));
     }
 
     printf("Max Value:%d\n",knapsack(values,weights,n_obj,max_weight,bottom));
