@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
+#include <omp.h>
 
 #define ERROR(str){printf("%s\n",str); return -1;}
 

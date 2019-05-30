@@ -2,13 +2,16 @@ FLAGS = -Wall -g
 
 cc = gcc
 
-all: knapsack createItems
+all: knap p_knap items/createItems
 
-knapsack: knapsack.c
+knap: knapsack.c
 	$(cc) $(FLAGS) -o$@ $^
 
-createItems: createItems.c
+p_knap: p_knapsack.c
+	$(cc) $(FLAGS) -o$@ $^ -fopenmp
+
+items/createItems: items/createItems.c
 	$(cc) $(FLAGS) -o$@ $^
 
 clean: 
-	rm -rf knapsack createItems
+	rm -rf *knap items/createItems 
