@@ -4,34 +4,52 @@
 
 #define ERROR(str){printf("%s\n",str); return -1;}
 
-int knapsack(int *value, int *weight, int n_obj, int size_knap, int **V, int **keep){
-	int w,  
-	    i;
-	for(w=0; w <= size_knap; w++) V[0][w] = 0;
-	for(i=0; i <= n_obj; i++) V[i][0] = 0;
-	
-	for(i=1; i <= n_obj; i++)
-		for(w = 1; w <= size_knap; w++)
-			if( (weight[i] < w) && (value[i]+V[i-1][w-weight[i]] > V[i-1][w])){
-				V[i][w]=value[i] + V[i-1][w-weight[i]];	
-				keep[i][w]=1;
+void printM(int **M, int n, int m){
+        printf("\n");        
+        for(int i = 0; i <= n; i++){
+                for(int j = 0; j <= m; j++){
+                        printf("%d%s",M[i][j],M[i][j]<10?"   ":M[i][j]<100?"  ":" ");
+                }
+                printf("\n");
+        }
+        printf("\n");
+}
+
+int *cpRows(int *origin, int *destiny, int tam){
+    for(int i=0; i<tam; i++)
+        destiny[i]=origin[i];
+
+    return destiny;
+}
+
+int knapsack(int *value, int *weight, int max_row, int max_col, int **V){
+	int w,                                          //peso iterativo 
+	    i,                                          //contador de itens
+        *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
+    memset(zero,0,(max_col+1) * sizeof(int)); 
+
+	for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
+		for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
+			if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
+                //se o item i caber no peso w E o valor do item i + 
+                //o valor da linha de cima no peso que sobra da mochila com o item i
+                //for maior que o valor do item de cima com o peso w
+                V[1][w]=value[i] + V[0][w-weight[i]];   //coloca essa soma
 			}else{
-				V[i][w] = V[i-1][w];
-				keep[i][w] = 0;
+				V[1][w] = V[0][w];                      //senão coloca o valor de cima 
 			}
-	int K = size_knap;
-	for(i=n_obj; i>0; i--){
-		if(keep[i][K] == 1){
-		//	printf("i %d w %d v%d\n",i,weight[i],value[i]);
-			K = K - weight[i];
-		}
-	}
-	return V[n_obj][size_knap];
+        V[0] = cpRows(V[1],V[0],max_col+1);     //coloca a linha de baixo em cima  
+        V[1] = cpRows(zero,V[1],max_col+1);     //zera a linha de baixo
+    }
+    
+    free(zero);
+	
+    return V[0][max_col];
 }
 
 void read_file(FILE *input, int *value, int *weight, int i){
-    char line[32];
-    while(fgets(line,32,input)){
+    char line[32];                          
+    while(fgets(line,32,input)){                    
         value[i] = atoi(strtok(line," "));
         weight[i] = atoi(strtok(NULL," "));
         i++;
@@ -50,30 +68,25 @@ int main(int argc, char **argv){
     fscanf(file,"%d %d\n",&n_obj,&max_weight);
     printf("%d items, knapsack size: %d\n",n_obj,max_weight);
 
-    values = malloc(n_obj*sizeof(int));
-    weights = malloc(n_obj*sizeof(int));
+    values = malloc((n_obj+1)*sizeof(int));
+    weights = malloc((n_obj+1)*sizeof(int));
 
-    read_file(file,values,weights,1);
+    read_file(file,values,weights,1); //le o arquivo e coloca apartir da posição 1, para deixar i igual o item 
     fclose(file);
 
-    int **bottom = malloc((n_obj+1)*sizeof(int *));
-    int **keep = malloc((n_obj+1)*sizeof(int *));
-    
-    for(int i=0; i<=n_obj; i++){
-    	bottom[i]= malloc(max_weight * sizeof(int));
-    	keep[i]= malloc(max_weight * sizeof(int));
+    int **bottom = malloc(2*sizeof(int *));  //it's needly only two rows
+                                            
+    for(int i=0; i<2; i++){
+    	bottom[i]= malloc((max_weight+1) * sizeof(int));
+        memset(bottom[i],0,(max_weight+1) * sizeof(int));
     }
 
-    printf("Max Value:%d\n",knapsack(values,weights,n_obj,max_weight,bottom,keep));
+    printf("Max Value:%d\n",knapsack(values,weights,n_obj,max_weight,bottom));
 	
     free(values);	
     free(weights);
-	
-    for(int i=0; i<=n_obj; i++){
-	free(bottom[i]);
-	free(keep[i]);
-    }
+    free(bottom[0]);
+    free(bottom[1]);
     free(bottom);
-    free(keep);
     return 0;
 }
