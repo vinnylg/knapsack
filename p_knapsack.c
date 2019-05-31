@@ -19,31 +19,24 @@ void printM(size_t **M, int n, int m){
 }
 
 size_t *cpRows(size_t *origin, size_t *destiny, int tam){
+    printf("--------------------------------------------\n");
+	int chunk_size = tam/N_THREADS;
+    printf("chunk_size = %d\n\n",chunk_size);
 
 	#pragma omp parallel num_threads(N_THREADS)
 	{
-		// int thread = omp_num_thread();
-		int chunk_size = tam/N_THREADS;
-		int ID = omp_get_thread_num();
-        printf("ID %d chuck %d\n",ID,chunk_size);
-		int i;
-		#pragma omp for	
-	    for(i = ID; i<tam; i+=ID){
-            printf("ID %d i %d\n",ID,i);
+		int ID = omp_get_thread_num();	
+		#pragma omp for 
+	    for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++){
+            if(i == ID*chunk_size){
+             printf("\n%d>sou uma thread boa e entrei no for com o i que mandaram para mim\n",ID);                
+            }
+            printf("ID: %d for(i = %d; (%d <= %d))\n",ID,ID*chunk_size,i,ID*chunk_size+chunk_size);
 	        destiny[i]=origin[i];
 	    }
-
-        int restin = tam - chunk_size*N_THREADS; 
-        //faltou coisa
-	    if(restin != 0 && ID == N_THREADS){
-            printf("OI TO AQUI\n");
-            for(int j=chunk_size*N_THREADS; j<=tam; j++){
-            	destiny[j] = origin[j];
-                
-            }
-	    }
+        printf("\n%d>sou uma thread má e sai do for porque quis\n",ID);
+        #pragma omp barrier
 	}
-
 
     return destiny;
 }
@@ -64,9 +57,11 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
             }else{
                 V[1][w] = V[0][w];                      //senão coloca o valor de cima 
             }
-        V[0] = cpRows(V[1],V[0],max_col+1);     //coloca a linha de baixo em cima  
-        V[1] = cpRows(zero,V[1],max_col+1);     //zera a linha de baixo
-        printM(V, 1, max_col+1);
+        printf("item %d\n+++++++++++++++++++++++++\n",i);
+        V[0] = cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
+        printf("\n000000000000000000000000000000000000000000\n");
+        V[1] = cpRows(zero,V[1],max_col);     //zera a linha de baixo
+        printM(V, 1, max_col);
     }
     
     free(zero);
