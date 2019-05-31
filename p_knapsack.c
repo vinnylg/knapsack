@@ -4,43 +4,69 @@
 #include <omp.h>
 
 #define ERROR(str){printf("%s\n",str); return -1;}
+#define N_THREADS 2
 
-void printM(int **M, int n, int m){
+void printM(size_t **M, int n, int m){
         printf("\n");        
         for(int i = 0; i <= n; i++){
                 for(int j = 0; j <= m; j++){
-                        printf("%d%s",M[i][j],M[i][j]<10?"   ":M[i][j]<100?"  ":" ");
+                        printf("%ld%s",M[i][j],M[i][j]<10?"   ":M[i][j]<100?"  ":" ");
                 }
+
                 printf("\n");
         }
         printf("\n");
 }
 
 size_t *cpRows(size_t *origin, size_t *destiny, int tam){
-    for(int i=0; i<tam; i++)
-        destiny[i]=origin[i];
+
+	#pragma omp parallel num_threads(N_THREADS)
+	{
+		// int thread = omp_num_thread();
+		int chunk_size = tam/N_THREADS;
+		int ID = omp_get_thread_num();
+        printf("ID %d chuck %d\n",ID,chunk_size);
+		int i;
+		#pragma omp for	
+	    for(i = ID; i<tam; i+=ID){
+            printf("ID %d i %d\n",ID,i);
+	        destiny[i]=origin[i];
+	    }
+
+        int restin = tam - chunk_size*N_THREADS; 
+        //faltou coisa
+	    if(restin != 0 && ID == N_THREADS){
+            printf("OI TO AQUI\n");
+            for(int j=chunk_size*N_THREADS; j<=tam; j++){
+            	destiny[j] = origin[j];
+                
+            }
+	    }
+	}
+
 
     return destiny;
 }
 
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
-	int w,                                             //peso iterativo 
-	    i;                                             //contador de itens
+    int w,                                             //peso iterativo 
+        i;                                             //contador de itens
     size_t *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
     memset(zero,0,(max_col+1) * sizeof(int)); 
 
-	for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
-		for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
-			if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
+    for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
+        for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
+            if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
                 //se o item i caber no peso w E o valor do item i + 
                 //o valor da linha de cima no peso que sobra da mochila com o item i
                 //for maior que o valor do item de cima com o peso w
                 V[1][w]=value[i] + V[0][w-weight[i]];   //coloca essa soma
-			}else{
-				V[1][w] = V[0][w];                      //senão coloca o valor de cima 
-			}
+            }else{
+                V[1][w] = V[0][w];                      //senão coloca o valor de cima 
+            }
         V[0] = cpRows(V[1],V[0],max_col+1);     //coloca a linha de baixo em cima  
         V[1] = cpRows(zero,V[1],max_col+1);     //zera a linha de baixo
+        printM(V, 1, max_col+1);
     }
     
     free(zero);
