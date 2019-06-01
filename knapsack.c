@@ -4,16 +4,24 @@
 
 #define ERROR(str){printf("%s\n",str); return -1;}
 
-void printM(int **M, int n, int m){
+void printM(size_t **M, int n, int m){
         printf("\n");        
         for(int i = 0; i <= n; i++){
                 for(int j = 0; j <= m; j++){
-                        printf("%d%s",M[i][j],M[i][j]<10?"   ":M[i][j]<100?"  ":" ");
+                        printf("%ld ",M[i][j]);
                 }
                 printf("\n");
         }
         printf("\n");
 }
+
+size_t *zeraRow(size_t *row, int tam){
+    for(int i=0; i<tam; i++)
+        row[i]=0;
+
+    return row;
+}
+
 
 size_t *cpRows(size_t *origin, size_t *destiny, int tam){
     for(int i=0; i<tam; i++)
@@ -24,9 +32,7 @@ size_t *cpRows(size_t *origin, size_t *destiny, int tam){
 
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
 	int w,                                             //peso iterativo 
-	    i;                                             //contador de itens
-    size_t *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
-    memset(zero,0,(max_col+1) * sizeof(int)); 
+	    i;                                             //contador de itens 
 
 	for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
 		for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
@@ -39,11 +45,10 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
 				V[1][w] = V[0][w];                      //senão coloca o valor de cima 
 			}
         V[0] = cpRows(V[1],V[0],max_col+1);     //coloca a linha de baixo em cima  
-        V[1] = cpRows(zero,V[1],max_col+1);     //zera a linha de baixo
+        V[1] = zeraRow(V[1],max_col+1);     //zera a linha de baixo
+        printM(V,1,max_col);
     }
-    
-    free(zero);
-	
+    	
     return V[0][max_col];
 }
 

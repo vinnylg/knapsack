@@ -8,7 +8,7 @@ knap: knapsack.c
 	$(cc) $(FLAGS) -o$@ $^
 
 p_knap: p_knapsack.c
-	$(cc) $(FLAGS) -o$@ $^ -fopenmp
+	$(cc) $(FLAGS) -o$@ $^ -lpthread
 
 items/createItems: items/createItems.c
 	$(cc) $(FLAGS) -o$@ $^

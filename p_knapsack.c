@@ -1,16 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
-#include <omp.h>
+#include <pthread.h>
 
 #define ERROR(str){printf("%s\n",str); return -1;}
-#define N_THREADS 2
+#define N_THREADS 4
+
+struct cp_row_params{
+    size_t *origin;
+    size_t *destiny;
+    int chunk_size;
+    int thread_number;
+    int mod;
+};
+
+typedef struct cp_row_params *cp;
+
+void *pthread_cp_row(void *void_args){
+    cp args = (cp)void_args;
+    //printf("THREAD:%p %p chuck:%d i:%d mod:%d\n",args->origin,args->destiny,args->chunk_size,args->thread_number,args->mod);
+    for(int i = args->thread_number*args->chunk_size;
+        (i <= (args->thread_number*args->chunk_size)+args->chunk_size+args->mod);
+        i++) {
+            //printf("TH:%d -> inicio:%d i:%d parada:%d\n",args->thread_number,args->thread_number*args->chunk_size,i,args->thread_number*args->chunk_size+args->chunk_size+args->mod);
+            args->destiny[i]=args->origin?args->origin[i]:0;
+        }
+    return (void *)args;
+}
 
 void printM(size_t **M, int n, int m){
         printf("\n");        
         for(int i = 0; i <= n; i++){
                 for(int j = 0; j <= m; j++){
-                        printf("%ld%s",M[i][j],M[i][j]<10?"   ":M[i][j]<100?"  ":" ");
+                        printf("%ld ",M[i][j]);
                 }
 
                 printf("\n");
@@ -18,28 +40,26 @@ void printM(size_t **M, int n, int m){
         printf("\n");
 }
 
-size_t *cpRows(size_t *origin, size_t *destiny, int tam){
-    printf("--------------------------------------------\n");
-	int chunk_size = tam/N_THREADS;
-    printf("chunk_size = %d\n\n",chunk_size);
+cp params;
+pthread_t thread[N_THREADS];
 
-	#pragma omp parallel num_threads(N_THREADS)
-	{
-		int ID = omp_get_thread_num();	
-		#pragma omp for 
-	    for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++){
-            if(i == ID*chunk_size){
-             printf("\n%d>sou uma thread boa e entrei no for com o i que mandaram para mim\n",ID);                
-            }
-            printf("ID: %d for(i = %d; (%d <= %d))\n",ID,ID*chunk_size,i,ID*chunk_size+chunk_size);
-	        destiny[i]=origin[i];
-	    }
-        printf("\n%d>sou uma thread má e sai do for porque quis\n",ID);
-        #pragma omp barrier
-	}
-
-    return destiny;
+void cpRows(size_t *origin, size_t *destiny, int tam){
+    if(!params) params = (cp) malloc(sizeof(struct cp_row_params));
+    params->origin = origin;
+    params->destiny = destiny;
+    params->chunk_size = tam/N_THREADS;
+    int mod = tam%N_THREADS;
+    for(int i = 0; i < N_THREADS; i++){
+        params->thread_number = i;
+        if( mod>0 && (i+1) == N_THREADS ) params->mod=mod; else params->mod=0;
+        //printf("CRIANDO: %p %p %d %d\n",params->origin,params->destiny,params->chunk_size,params->thread_number);
+        pthread_create(&thread[i], NULL, pthread_cp_row, (void *)params);
+    }
+    for(int i = 0; i < N_THREADS; i++)
+        pthread_join(thread[i], NULL);    
 }
+
+
 
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
     int w,                                             //peso iterativo 
@@ -57,11 +77,11 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
             }else{
                 V[1][w] = V[0][w];                      //senão coloca o valor de cima 
             }
-        printf("item %d\n+++++++++++++++++++++++++\n",i);
-        V[0] = cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
-        printf("\n000000000000000000000000000000000000000000\n");
-        V[1] = cpRows(zero,V[1],max_col);     //zera a linha de baixo
-        printM(V, 1, max_col);
+        //printf("item %d\n+++++++++++++++++++++++++\n",i);
+        cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
+        //printf("zerar ---------------------------\n");
+        cpRows(NULL,V[1],max_col);     //coloca a linha de baixo em cima 
+        //printM(V, 1, max_col);
     }
     
     free(zero);
