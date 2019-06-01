@@ -32,7 +32,7 @@ size_t *cpRows(size_t *origin, size_t *destiny, int tam){
              printf("\n%d>sou uma thread boa e entrei no for com o i que mandaram para mim\n",ID);                
             }
             printf("ID: %d for(i = %d; (%d <= %d))\n",ID,ID*chunk_size,i,ID*chunk_size+chunk_size);
-	        destiny[i]=origin[i];
+	        destiny[i]=origin?origin[i]:0;
 	    }
         printf("\n%d>sou uma thread má e sai do for porque quis\n",ID);
         #pragma omp barrier
@@ -44,8 +44,6 @@ size_t *cpRows(size_t *origin, size_t *destiny, int tam){
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
     int w,                                             //peso iterativo 
         i;                                             //contador de itens
-    size_t *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
-    memset(zero,0,(max_col+1) * sizeof(int)); 
 
     for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
         for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
@@ -60,11 +58,9 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
         printf("item %d\n+++++++++++++++++++++++++\n",i);
         V[0] = cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
         printf("\n000000000000000000000000000000000000000000\n");
-        V[1] = cpRows(zero,V[1],max_col);     //zera a linha de baixo
+        V[1] = cpRows(NULL,V[1],max_col);     //zera a linha de baixo
         printM(V, 1, max_col);
     }
-    
-    free(zero);
 	
     return V[0][max_col];
 }
