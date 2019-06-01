@@ -1,18 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include <string.h> 
 
 #define ERROR(str){printf("%s\n",str); return -1;}
 
-void printM(int **M, int n, int m){
-        printf("\n");        
-        for(int i = 0; i <= n; i++){
-                for(int j = 0; j <= m; j++){
-                        printf("%d%s",M[i][j],M[i][j]<10?"   ":M[i][j]<100?"  ":" ");
-                }
-                printf("\n");
-        }
-        printf("\n");
+double timestamp(void){
+	struct timeval tp;
+	gettimeofday(&tp,NULL);
+	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
 static inline void cpRows(size_t *origin, size_t *destiny, int tam){
@@ -79,7 +75,11 @@ int main(int argc, char **argv){
         memset(bottom[i],0,(max_weight+1) * sizeof(size_t));
     }
 
-    printf("Max Value:%d\n",knapsack(values,weights,n_obj,max_weight,bottom));
+    double timeBegin = timestamp();
+    size_t max_value = knapsack(values,weights,n_obj,max_weight,bottom);
+    double timeEnd = timestamp();
+
+    printf("Max Value:%ld\ntime:%f sequential\n",max_value,timeEnd-timeBegin);
 	
     free(values);	
     free(weights);
