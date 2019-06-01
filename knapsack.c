@@ -15,18 +15,18 @@ void printM(int **M, int n, int m){
         printf("\n");
 }
 
-size_t *cpRows(size_t *origin, size_t *destiny, int tam){
-    for(int i=0; i<tam; i++)
-        destiny[i]=origin[i];
-
-    return destiny;
+static inline void cpRows(size_t *origin, size_t *destiny, int tam){
+    if(origin)
+        for(int i=0; i<=tam; i++)
+            destiny[i]=origin[i];
+    else
+        for(int i=0; i<=tam; i++)
+            destiny[i]=0;
 }
 
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
 	int w,                                             //peso iterativo 
 	    i;                                             //contador de itens
-    size_t *zero = malloc((max_col+1)*sizeof(int));    //vetor de zeros
-    memset(zero,0,(max_col+1) * sizeof(int)); 
 
 	for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
 		for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
@@ -38,12 +38,10 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
 			}else{
 				V[1][w] = V[0][w];                      //senão coloca o valor de cima 
 			}
-        V[0] = cpRows(V[1],V[0],max_col+1);     //coloca a linha de baixo em cima  
-        V[1] = cpRows(zero,V[1],max_col+1);     //zera a linha de baixo
+        cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima  
+        cpRows(NULL,V[1],max_col);     //zera a linha de baixo
     }
     
-    free(zero);
-	
     return V[0][max_col];
 }
 
@@ -65,7 +63,7 @@ int main(int argc, char **argv){
 
     int max_weight, n_obj, *values, *weights;
 
-    fscanf(file,"%d %d\n",&n_obj,&max_weight);
+    if(fscanf(file,"%d %d\n",&n_obj,&max_weight));
     printf("%d items, knapsack size: %d\n",n_obj,max_weight);
  
     values = malloc((n_obj+1)*sizeof(int));
