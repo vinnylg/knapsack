@@ -5,7 +5,7 @@
 #include <omp.h>
 
 #define ERROR(str){printf("%s\n",str); return -1;}
-#define N_THREADS 2
+#define N_THREADS 4
     
 double timestamp(void){
 	struct timeval tp;
@@ -13,49 +13,78 @@ double timestamp(void){
 	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
-static inline void cpRows(size_t *origin, size_t *destiny, int tam){
-	int chunk_size = tam/N_THREADS;
-    int restin = tam%N_THREADS;
-    if(origin){
-        #pragma omp parallel num_threads(N_THREADS)
-        {
-            int ID = omp_get_thread_num();
-            for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++)
-                destiny[i]=origin[i];
-        }
-        for(int i=tam; i > tam-restin; i--)
-            destiny[i]=origin[i];
+// static inline void cpRows(size_t *origin, size_t *destiny, int tam){
+// 	int chunk_size = tam/N_THREADS;
+//     int restin = tam%N_THREADS;
+//     if(origin){
+//         #pragma omp parallel num_threads(N_THREADS)
+//         {
+//             int ID = omp_get_thread_num();
+//             for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++)
+//                 destiny[i]=origin[i];
+//         }
+//         for(int i=tam; i > tam-restin; i--)
+//             destiny[i]=origin[i];
             
-    }else{
-        #pragma omp parallel num_threads(N_THREADS)
-        {
-            int ID = omp_get_thread_num();
-            for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++)
-                destiny[i]=0; 
+//     }else{
+//         #pragma omp parallel num_threads(N_THREADS)
+//         {
+//             int ID = omp_get_thread_num();
+//             for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++)
+//                 destiny[i]=0; 
+//         }
+//         for(int i=tam; i > tam-restin; i--)
+//             destiny[i]=0;       
+//     }
+// }
+
+
+
+static inline void cpRows(size_t** mat, int lin_ori, int lin_dest, int tam){
+    int chunk_size = tam/N_THREADS;
+    int restin = tam%N_THREADS;
+
+    #pragma omp parallel num_threads(N_THREADS)
+    {
+        int ID = omp_get_thread_num();
+        for(int i=ID*chunk_size; i<=(ID*chunk_size+chunk_size); i++){
+            mat[lin_dest][i] = mat[lin_ori][i];
         }
+    
+        #pragma omp single
         for(int i=tam; i > tam-restin; i--)
-            destiny[i]=0;       
+            mat[lin_dest][i] = mat[lin_ori][i];
+
+        for(int i=ID*chunk_size; i<=(ID*chunk_size+chunk_size); i++)
+            mat[lin_ori][i] = 0;                
+
     }
+
+    // #pragma omp parallel num_threads(N_THREADS)
 }
 
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
     int w,                                             //peso iterativo 
         i;                                             //contador de itens
 
-    for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
-        for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
-            if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
-                //se o item i caber no peso w E o valor do item i + 
-                //o valor da linha de cima no peso que sobra da mochila com o item i
-                //for maior que o valor do item de cima com o peso w
-                V[1][w]=value[i] + V[0][w-weight[i]];   //coloca essa soma
-            }else{
-                V[1][w] = V[0][w];                      //senão coloca o valor de cima 
+        for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
+            for(w = 1; w <= max_col; w++){               //percorre desde o peso 1 até o peso maximo da mochila
+                if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
+                    //se o item i caber no peso w E o valor do item i + 
+                    //o valor da linha de cima no peso que sobra da mochila com o item i
+                    //for maior que o valor do item de cima com o peso w
+                    V[1][w]=value[i] + V[0][w-weight[i]];   //coloca essa soma
+                }else{
+                    V[1][w] = V[0][w];                      //senão coloca o valor de cima 
+                }
             }
-        cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
-        cpRows(NULL,V[1],max_col);     //zera a linha de baixo
-    }
-	
+
+            cpRows(V, 1, 0, max_col);
+            // cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
+            // cpRows(NULL,V[1],max_col);     //zera a linha de baixo
+        }
+    
+
     return V[0][max_col];
 }
 
