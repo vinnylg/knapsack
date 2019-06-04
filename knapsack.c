@@ -11,13 +11,21 @@ double timestamp(void){
 	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
-static inline void cpRows(size_t *origin, size_t *destiny, int tam){
-    if(origin)
-        for(int i=0; i<=tam; i++)
-            destiny[i]=origin[i];
-    else
-        for(int i=0; i<=tam; i++)
-            destiny[i]=0;
+// static inline void cpRows(size_t *origin, size_t *destiny, int tam){
+//     if(origin)
+//         for(int i=0; i<=tam; i++)
+//             destiny[i]=origin[i];
+//     else
+//         for(int i=0; i<=tam; i++)
+//             destiny[i]=0;
+// }
+
+static inline void cpRows(size_t** mat, int lin_ori, int lin_dest, int tam  ){
+    for(int i=0; i<=tam; i++){
+        mat[lin_dest][i] = mat[lin_ori][i];
+        mat[lin_ori][i] = 0;                
+    }
+
 }
 
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
@@ -34,8 +42,7 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
 			}else{
 				V[1][w] = V[0][w];                      //senão coloca o valor de cima 
 			}
-        cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima  
-        cpRows(NULL,V[1],max_col);     //zera a linha de baixo
+        cpRows(V, 1, 0, max_col);
     }
     
     return V[0][max_col];
