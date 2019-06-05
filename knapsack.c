@@ -14,28 +14,26 @@ double timestamp(void){
 int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
     int w,                                             //peso iterativo 
         i;                                             //contador de itens
-    size_t *rows[3],   //line one, two and tmp
+    size_t *tmp,   //line one, two and tmp
             max_value = 0;
-    rows[0]=V[0];
-    rows[1]=V[1];
 
         for(i=1; i <= n_obj; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
             for(w = 1; w <= weight_max; w++){               //percorre desde o peso 1 até o peso maximo da mochila
-                if( (weight[i] <= w) && ((max_value = value[i]+rows[0][w-weight[i]]) > rows[0][w])){    
+                if( (weight[i] <= w) && ((max_value = value[i]+V[0][w-weight[i]]) > V[0][w])){    
                     //se o item i caber no peso w E o valor do item i + 
                     //o valor da linha de cima no peso que sobra da mochila com o item i
                     //for maior que o valor do item de cima com o peso w
-                    rows[1][w]= max_value;   //coloca essa soma
+                    V[1][w]= max_value;   //coloca essa soma
                 }else{
-                    rows[1][w] = rows[0][w];                      //senão coloca o valor de cima 
+                    V[1][w] = V[0][w];                      //senão coloca o valor de cima 
                 }
             }
-            rows[2]=rows[0];                //tmp recebe linha zero
-            rows[0]=rows[1];                //linha 0 recebe linha 1
-            rows[1]=rows[2];                //linha 1 recebe tmp
-            memset(rows[1],0,sizeof(size_t)); //zera linha 1
+            tmp=V[0];                //tmp recebe linha zero
+            V[0]=V[1];                //linha 0 recebe linha 1
+            V[1]=tmp;                //linha 1 recebe tmp
+            memset(V[1],0,sizeof(size_t)); //zera linha 1
         }
-    return rows[0][weight_max];
+    return V[0][weight_max];
 }
 
 void read_file(FILE *input, int *value, int *weight, int i){
