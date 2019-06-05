@@ -11,7 +11,7 @@ double timestamp(void){
 	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
-int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
+int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
     int w,                                             //peso iterativo 
         i;                                             //contador de itens
     size_t *rows[3],   //line one, two and tmp
@@ -19,8 +19,8 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
     rows[0]=V[0];
     rows[1]=V[1];
 
-        for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
-            for(w = 1; w <= max_col; w++){               //percorre desde o peso 1 até o peso maximo da mochila
+        for(i=1; i <= n_obj; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
+            for(w = 1; w <= weight_max; w++){               //percorre desde o peso 1 até o peso maximo da mochila
                 if( (weight[i] <= w) && ((max_value = value[i]+rows[0][w-weight[i]]) > rows[0][w])){    
                     //se o item i caber no peso w E o valor do item i + 
                     //o valor da linha de cima no peso que sobra da mochila com o item i
@@ -35,7 +35,7 @@ int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
             rows[1]=rows[2];                //linha 1 recebe tmp
             memset(rows[1],0,sizeof(size_t)); //zera linha 1
         }
-    return rows[0][max_col];
+    return rows[0][weight_max];
 }
 
 void read_file(FILE *input, int *value, int *weight, int i){
