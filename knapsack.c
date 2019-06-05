@@ -11,41 +11,31 @@ double timestamp(void){
 	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
-// static inline void cpRows(size_t *origin, size_t *destiny, int tam){
-//     if(origin)
-//         for(int i=0; i<=tam; i++)
-//             destiny[i]=origin[i];
-//     else
-//         for(int i=0; i<=tam; i++)
-//             destiny[i]=0;
-// }
-
-static inline void cpRows(size_t** mat, int lin_ori, int lin_dest, int tam  ){
-    for(int i=0; i<=tam; i++){
-        mat[lin_dest][i] = mat[lin_ori][i];
-        mat[lin_ori][i] = 0;                
-    }
-
-}
-
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
-	int w,                                             //peso iterativo 
-	    i;                                             //contador de itens
+    int w,                                             //peso iterativo 
+        i;                                             //contador de itens
+    size_t *rows[3],   //line one, two and tmp
+            max_value = 0;
+    rows[0]=V[0];
+    rows[1]=V[1];
 
-	for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
-		for(w = 1; w <= max_col; w++)               //percorre desde o peso 1 até o peso maximo da mochila
-			if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
-                //se o item i caber no peso w E o valor do item i + 
-                //o valor da linha de cima no peso que sobra da mochila com o item i
-                //for maior que o valor do item de cima com o peso w
-                V[1][w]=value[i] + V[0][w-weight[i]];   //coloca essa soma
-			}else{
-				V[1][w] = V[0][w];                      //senão coloca o valor de cima 
-			}
-        cpRows(V, 1, 0, max_col);
-    }
-    
-    return V[0][max_col];
+        for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
+            for(w = 1; w <= max_col; w++){               //percorre desde o peso 1 até o peso maximo da mochila
+                if( (weight[i] <= w) && ((max_value = value[i]+rows[0][w-weight[i]]) > rows[0][w])){    
+                    //se o item i caber no peso w E o valor do item i + 
+                    //o valor da linha de cima no peso que sobra da mochila com o item i
+                    //for maior que o valor do item de cima com o peso w
+                    rows[1][w]= max_value;   //coloca essa soma
+                }else{
+                    rows[1][w] = rows[0][w];                      //senão coloca o valor de cima 
+                }
+            }
+            rows[2]=rows[0];                //tmp recebe linha zero
+            rows[0]=rows[1];                //linha 0 recebe linha 1
+            rows[1]=rows[2];                //linha 1 recebe tmp
+            memset(rows[1],0,sizeof(size_t)); //zera linha 1
+        }
+    return rows[0][max_col];
 }
 
 void read_file(FILE *input, int *value, int *weight, int i){
@@ -67,7 +57,6 @@ int main(int argc, char **argv){
     int max_weight, n_obj, *values, *weights;
 
     if(fscanf(file,"%d %d\n",&n_obj,&max_weight));
-    printf("%d items, knapsack size: %d\n",n_obj,max_weight);
  
     values = malloc((n_obj+1)*sizeof(int));
     weights = malloc((n_obj+1)*sizeof(int));
@@ -86,7 +75,7 @@ int main(int argc, char **argv){
     size_t max_value = knapsack(values,weights,n_obj,max_weight,bottom);
     double timeEnd = timestamp();
 
-    printf("Max Value:%ld\ntime:%f sequential\n",max_value,timeEnd-timeBegin);
+    printf("%d,%d,%d,%zd,%f,%s\n",0,n_obj,max_weight,max_value,timeEnd-timeBegin,argv[1]);
 	
     free(values);	
     free(weights);

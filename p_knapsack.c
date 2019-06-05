@@ -5,7 +5,7 @@
 #include <omp.h>
 
 #define ERROR(str){printf("%s\n",str); return -1;}
-#define N_THREADS 4
+int N_THREADS;
     
 double timestamp(void){
 	struct timeval tp;
@@ -13,79 +13,31 @@ double timestamp(void){
 	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
-// static inline void cpRows(size_t *origin, size_t *destiny, int tam){
-// 	int chunk_size = tam/N_THREADS;
-//     int restin = tam%N_THREADS;
-//     if(origin){
-//         #pragma omp parallel num_threads(N_THREADS)
-//         {
-//             int ID = omp_get_thread_num();
-//             for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++)
-//                 destiny[i]=origin[i];
-//         }
-//         for(int i=tam; i > tam-restin; i--)
-//             destiny[i]=origin[i];
-            
-//     }else{
-//         #pragma omp parallel num_threads(N_THREADS)
-//         {
-//             int ID = omp_get_thread_num();
-//             for(int i = ID*chunk_size; i <= (ID*chunk_size+chunk_size);  i++)
-//                 destiny[i]=0; 
-//         }
-//         for(int i=tam; i > tam-restin; i--)
-//             destiny[i]=0;       
-//     }
-// }
-
-
-
-static inline void cpRows(size_t** mat, int lin_ori, int lin_dest, int tam){
-    int chunk_size = tam/N_THREADS;
-    int restin = tam%N_THREADS;
-
-    #pragma omp parallel num_threads(N_THREADS)
-    {
-        int ID = omp_get_thread_num();
-        for(int i=ID*chunk_size; i<=(ID*chunk_size+chunk_size); i++){
-            mat[lin_dest][i] = mat[lin_ori][i];
-        }
-    
-        #pragma omp single
-        for(int i=tam; i > tam-restin; i--)
-            mat[lin_dest][i] = mat[lin_ori][i];
-
-        for(int i=ID*chunk_size; i<=(ID*chunk_size+chunk_size); i++)
-            mat[lin_ori][i] = 0;                
-
-    }
-
-    // #pragma omp parallel num_threads(N_THREADS)
-}
-
 int knapsack(int *value, int *weight, int max_row, int max_col, size_t **V){
     int w,                                             //peso iterativo 
         i;                                             //contador de itens
+    size_t *rows[3],   //line one, two and tmp
+            max_value = 0;
+    rows[0]=V[0];
+    rows[1]=V[1];
 
         for(i=1; i <= max_row; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
             for(w = 1; w <= max_col; w++){               //percorre desde o peso 1 até o peso maximo da mochila
-                if( (weight[i] <= w) && (value[i]+V[0][w-weight[i]] > V[0][w])){    
+                if( (weight[i] <= w) && ((max_value = value[i]+rows[0][w-weight[i]]) > rows[0][w])){    
                     //se o item i caber no peso w E o valor do item i + 
                     //o valor da linha de cima no peso que sobra da mochila com o item i
                     //for maior que o valor do item de cima com o peso w
-                    V[1][w]=value[i] + V[0][w-weight[i]];   //coloca essa soma
+                    rows[1][w]= max_value;   //coloca essa soma
                 }else{
-                    V[1][w] = V[0][w];                      //senão coloca o valor de cima 
+                    rows[1][w] = rows[0][w];                      //senão coloca o valor de cima 
                 }
             }
-
-            cpRows(V, 1, 0, max_col);
-            // cpRows(V[1],V[0],max_col);     //coloca a linha de baixo em cima 
-            // cpRows(NULL,V[1],max_col);     //zera a linha de baixo
+            rows[2]=rows[0];                //tmp recebe linha zero
+            rows[0]=rows[1];                //linha 0 recebe linha 1
+            rows[1]=rows[2];                //linha 1 recebe tmp
+            memset(rows[1],0,sizeof(size_t)); //zera linha 1
         }
-    
-
-    return V[0][max_col];
+    return rows[0][max_col];
 }
 
 void read_file(FILE *input, int *value, int *weight, int i){
@@ -98,16 +50,17 @@ void read_file(FILE *input, int *value, int *weight, int i){
 }                                                                                                     
 
 int main(int argc, char **argv){
-    if(!argv[1]) ERROR("USAGE: knapsack <file_of_items>")
+    if(argc!=3) ERROR("USAGE: knapsack <file_of_items> <THREADS>")
     
     FILE *file = fopen(argv[1],"r");
 
     if(!file) ERROR("File couldn't opened")
 
+    N_THREADS = atoi(argv[2]);
+
     int max_weight, n_obj, *values, *weights;
 
     if(fscanf(file,"%d %d\n",&n_obj,&max_weight));
-    printf("%d items, knapsack size: %d\n",n_obj,max_weight);
  
     values = malloc((n_obj+1)*sizeof(int));
     weights = malloc((n_obj+1)*sizeof(int));
@@ -126,7 +79,7 @@ int main(int argc, char **argv){
     size_t max_value = knapsack(values,weights,n_obj,max_weight,bottom);
     double timeEnd = timestamp();
 
-    printf("Max Value:%ld\ntime:%f with %d threads\n",max_value,timeEnd-timeBegin,N_THREADS);
+    printf("%d,%d,%d,%zd,%f,%s\n",N_THREADS,n_obj,max_weight,max_value,timeEnd-timeBegin,argv[1]);
 	
     free(values);	
     free(weights);
