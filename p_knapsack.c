@@ -15,11 +15,15 @@ double timestamp(void){
 
 int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
     int w,                                             //peso iterativo 
-        i;                                             //contador de itens
+        i,
+	chunck_size = weight_max/N_THREADS;                                             //contador de itens
     size_t *tmp,   //line one, two and tmp
             max_value = 0;
 
         for(i=1; i <= n_obj; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
+	#pragma omp parallel num_threads(N_THREADS)
+	{
+	#pragma omp for schedule(dynamic,chunck_size)
             for(w = 1; w <= weight_max; w++){               //percorre desde o peso 1 até o peso maximo da mochila
                 if( (weight[i] <= w) && ((max_value = value[i]+V[0][w-weight[i]]) > V[0][w])){    
                     //se o item i caber no peso w E o valor do item i + 
@@ -30,6 +34,7 @@ int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
                     V[1][w] = V[0][w];                      //senão coloca o valor de cima 
                 }
             }
+	}
             tmp=V[0];                //tmp recebe linha zero
             V[0]=V[1];                //linha 0 recebe linha 1
             V[1]=tmp;                //linha 1 recebe tmp
