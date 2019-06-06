@@ -13,20 +13,12 @@ double timestamp(void){
 
 int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
     int w,                                             //peso iterativo 
-        i,                                         //contador de itensa
-	flag,
-	max,
-	flag2,
-	positivo;
+        i;                                         //contador de itensa
     size_t *tmp;   //line one, two and tmp
 
         for(i=1; i <= n_obj; i++){                    //percorre apartir do primeiro item até o ultimo (i=0==NULL)
             for(w = 1; w <= weight_max; w++){         //percorre desde o peso 1 até o peso maximo da mochila 
-                flag= weight[i] <= w;
-                positivo=((w-weight[i])>=0);
-                max=( value[i]+V[0][positivo*(w-weight[i])] ) * positivo;	
-                flag2= max > V[0][w];
-                V[1][w]= (flag*flag2*max) + (!flag2*V[0][w]);                 //senão coloca o valor de cima 
+                V[1][w]= ((weight[i] <= w)*( (value[i]+V[0][((w-weight[i])>=0)*(w-weight[i])])*((w-weight[i])>=0) > V[0][w] )*(value[i]+V[0][((w-weight[i])>=0)*(w-weight[i])])*((w-weight[i])>=0)) + (!( (value[i]+V[0][((w-weight[i])>=0)*(w-weight[i])])*((w-weight[i])>=0) > V[0][w] )*V[0][w]);
             }
             tmp=V[0];                //tmp recebe linha zero
             V[0]=V[1];                //linha 0 recebe linha 1
