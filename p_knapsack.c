@@ -16,12 +16,10 @@ double timestamp(void){
 
 
 int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
-    CACHE_SIZE/=120; //4 Bytes of each int 
-    CACHE_SIZE/=N_THREADS; //3 arrays load 
+    CACHE_SIZE/=N_THREADS*12; //3 arrays of int load per thread
     int w,                                             //peso iterativo 
         i,
 	chunck_size = CACHE_SIZE; 
-    printf("%d\n",chunck_size);                                            //contador de itens
     size_t *tmp,   //line one, two and tmp
             max_value = 0;
 
@@ -89,7 +87,7 @@ int main(int argc, char **argv){
     size_t max_value = knapsack(values,weights,n_obj,max_weight,bottom);
     double timeEnd = timestamp();
 
-    printf("%d,%d,%d,%zd,%f,%s\n",N_THREADS,n_obj,max_weight,max_value,timeEnd-timeBegin,argv[1]);
+    printf("%d\t%d\t%d\t%d\t%zd\t%f\t%s\n",N_THREADS,CACHE_SIZE,n_obj,max_weight,max_value,timeEnd-timeBegin,argv[1]);
 	
     free(values);	
     free(weights);
