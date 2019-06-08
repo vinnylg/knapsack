@@ -12,14 +12,16 @@ int main(){
     long int weight_max,n_obj;
     for( weight_max=0; weight_max < 11; weight_max++)
         for (n_obj=0; n_obj < 11; n_obj++){
-            sprintf(cmd,"./createItems items/mexp%ld-%ld %ld %ld",n_obj_exp[n_obj],weight_max_exp[weight_max],n_obj_exp[n_obj],weight_max_exp[weight_max]);
+            sprintf(cmd,"./createItem items/mexp%ld-%ld %ld %ld",weight_max_exp[weight_max],n_obj_exp[n_obj],n_obj_exp[n_obj],weight_max_exp[weight_max]);
             printf("%s\n",cmd);
             if(system(cmd));
         }
     for( weight_max=0; weight_max < 19; weight_max++)
         for (n_obj=0; n_obj < 19; n_obj++){
-            sprintf(cmd,"./createItems items/mlin%ld-%ld %ld %ld",n_obj_lin[n_obj],weight_max_lin[weight_max],n_obj_lin[n_obj],weight_max_lin[weight_max]);
+            sprintf(cmd,"./createItem items/mlin%ld-%ld %ld %ld",weight_max_lin[weight_max],n_obj_lin[n_obj],n_obj_lin[n_obj],weight_max_lin[weight_max]);
             printf("%s\n",cmd);
             if(system(cmd));
         }
+
+    printf("\nfiles type: m[exp|lin]weight_max-n_obj\nto use all 482 files, run ./test\n");
 }

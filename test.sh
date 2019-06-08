@@ -1,7 +1,7 @@
 #!/bin/bash
 PAR=./p_knap
 SEQ=./knap
-ITEMS=items/m*
+ITEMS=$(ls -v items/)
 DATE="$(date +"%d%k%M%S")"
 OUT=results.$DATE
 echo "INFO-PC" >> $OUT
@@ -24,12 +24,12 @@ do
 	$SEQ $ITEM >> $OUT
 	echo "sucess"
 
-	for TH in {1..8}
-	do
+	# for TH in {1..8}
+	# do
     	  echo "$PAR $ITEM with $TH threads and $CACHE of cache"
-    	  $PAR $ITEM $TH $CACHE >> $OUT
+    	#   $PAR $ITEM $TH $CACHE >> $OUT
     	  echo "sucess"
-	done
+	# done
 done
 echo "sucess all"
 
