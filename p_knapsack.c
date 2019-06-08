@@ -87,7 +87,9 @@ int main(int argc, char **argv){
     size_t max_value = knapsack(values,weights,n_obj,max_weight,bottom);
     double timeEnd = timestamp();
 
-    printf("%d\t%d\t%d\t%d\t%zd\t%f\t%s\n",N_THREADS,CACHE_SIZE,n_obj,max_weight,max_value,timeEnd-timeBegin,argv[1]);
+    char arq[30];
+    sscanf(argv[1],"./items/%s",arq);
+    printf("%s,%d,%d,%d,%d,%zd,%f\n",arq,N_THREADS,CACHE_SIZE,n_obj,max_weight,max_value,timeEnd-timeBegin);
 	
     free(values);	
     free(weights);
