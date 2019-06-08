@@ -14,6 +14,13 @@ int numb(int mwi){
     return n;
 }
 
+int stringToInt(char *str){
+    int tam = strlen(str);
+    int hash = 0;
+    for(int i=0; i<tam; i++)
+        hash+=(int)str[i];
+    return hash;
+}
 
 int main(int argc, char **argv){
     if(!argv[1]||!argv[2]||!argv[3]) ERROR("USAGE: generateItems <file> <number_of_items> <max_wight_of_items>")
@@ -22,7 +29,7 @@ int main(int argc, char **argv){
 
     if(!file) ERROR("File couldn't opened")    
 
-    srand(time(NULL));
+    srand((unsigned int)stringToInt("paralela_eh_top"));
     int noi=atoi(argv[2]), mwi=atoi(argv[3]);
     fprintf(file,"%d %d\n",noi,mwi);
     printf("%d %d\n",noi,mwi);

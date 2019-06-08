@@ -6,6 +6,7 @@
 
 #define ERROR(str){printf("%s\n",str); return -1;}
 int N_THREADS;
+int CACHE_SIZE;
     
 double timestamp(void){
 	struct timeval tp;
@@ -13,10 +14,14 @@ double timestamp(void){
 	return ((double)(tp.tv_sec + (double)tp.tv_usec/1000000));
 }
 
+
 int knapsack(int *value, int *weight, int n_obj, int weight_max, size_t **V){
+    CACHE_SIZE/=120; //4 Bytes of each int 
+    CACHE_SIZE/=N_THREADS; //3 arrays load 
     int w,                                             //peso iterativo 
         i,
-	chunck_size = weight_max/N_THREADS;                                             //contador de itens
+	chunck_size = CACHE_SIZE; 
+    printf("%d\n",chunck_size);                                            //contador de itens
     size_t *tmp,   //line one, two and tmp
             max_value = 0;
 
@@ -53,13 +58,15 @@ void read_file(FILE *input, int *value, int *weight, int i){
 }                                                                                                     
 
 int main(int argc, char **argv){
-    if(argc!=3) ERROR("USAGE: knapsack <file_of_items> <THREADS>")
+    if(argc!=4) ERROR("USAGE: knapsack <file_of_items> <THREADS> <CACHE_SIZE>")
     
     FILE *file = fopen(argv[1],"r");
 
     if(!file) ERROR("File couldn't opened")
 
     N_THREADS = atoi(argv[2]);
+    CACHE_SIZE = atoi(argv[3]);
+    CACHE_SIZE*=1024;
 
     int max_weight, n_obj, *values, *weights;
 

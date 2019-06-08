@@ -1,8 +1,9 @@
-FLAGS = -Wall -O2 -shared-libgcc -g
+# FLAGS = -Wall -O2 -shared-libgcc -g
+FLAGS = -O3 -Wall
 
 cc = gcc
 
-all: knap p_knap items/createItems
+all: knap p_knap createItems doitems
 
 knap: knapsack.c
 	$(cc) $(FLAGS) -o$@ $^
@@ -10,8 +11,11 @@ knap: knapsack.c
 p_knap: p_knapsack.c
 	$(cc) $(FLAGS) -o$@ $^ -fopenmp
 
-items/createItems: items/createItems.c
+createItems: createItems.c
+	$(cc) $(FLAGS) -o$@ $^
+
+doitems: doitems.c
 	$(cc) $(FLAGS) -o$@ $^
 
 clean: 
-	rm -rf *knap items/createItems 
+	rm -rf *knap *tems
