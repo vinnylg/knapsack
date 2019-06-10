@@ -3,21 +3,8 @@ PAR=./p_knap
 SEQ=./knap
 DIR=./items/
 ITEMS=$(ls -v $DIR)
-DATE="$(date +"%d%H%M%S")"
+DATE="$(date +"%H%M%S")"
 OUT=results.$DATE
-echo "INFO-PC" >> $OUT
-lscpu | grep CPU* >> $OUT
-lscpu | grep Thread >> $OUT
-lscpu | grep cache >> $OUT
-L1=$(lscpu | grep -m 1 L1)
-L1=${L1#*: }
-L1=${L1%K}
-L2=$(lscpu | grep  L2)
-L2=${L2#*: }
-L2=${L2%K}
-L3=$(lscpu | grep  L3)
-L3=${L3#*: }
-L3=${L3%[[:alpha:]]}
 
 if [ "$1" == "L1" ] 
 then
@@ -29,13 +16,22 @@ else
 	CACHE=$L3
 fi
 
-if [ "$2" == "16" ]
-then
-	MAX_THREAD=$2
-else
-	MAX_THREAD=8
-fi
+echo "INFO-PC" >> $OUT
+lscpu | grep CPU* >> $OUT
+lscpu | grep Thread >> $OUT
+lscpu | grep cache >> $OUT
 
+L1=$(lscpu | grep -m 1 L1)
+L1=${L1#*: }
+L1=${L1%K}
+L2=$(lscpu | grep  L2)
+L2=${L2#*: }
+L2=${L2%K}
+L3=$(lscpu | grep  L3)
+L3=${L3#*: }
+L3=${L3%[[:alpha:]]}
+
+CACHES=($L3 $L2 $L1)
 
 free -m >> $OUT
 
@@ -44,16 +40,19 @@ echo "----------------------------------------------------------------" >> $OUT
 echo "Cache memory: $CACHE" >> $OUT
 echo "file,N_THREADS,CHUNK_SIZE,n_obj,max_weight,max_value,time" >> $OUT
 
-for ITEM in $ITEMS
+for i in {0..2}
 do
-	echo "$SEQ $ITEM"
-	time $SEQ $DIR$ITEM >> $OUT
-	echo ""
-	for TH in {1..$MAX_THREAD}
+	for ITEM in $ITEMS
 	do
-		echo $PAR $DIR$ITEM $TH $CACHE
-		time $PAR $DIR$ITEM $TH $CACHE >> $OUT
-	  	echo ""
+		echo "$SEQ $ITEM"
+		time $SEQ $DIR$ITEM >> $OUT
+		echo ""
+		for TH in {1..8}
+		do
+			echo $PAR $DIR$ITEM $TH ${CACHES[$i]}
+			time $PAR $DIR$ITEM $TH ${CACHES[$i]} >> $OUT
+			echo ""
+		done
 	done
 done
 echo "sucess all"

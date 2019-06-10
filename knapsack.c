@@ -74,7 +74,7 @@ int main(int argc, char **argv){
     double timeEnd = timestamp();
     char arq[30];
     sscanf(argv[1],"./items/%s",arq);
-    printf("%s,%d,%d,%d,%d,%zd,%f\n",arq,0,0,n_obj,max_weight,max_value,timeEnd-timeBegin);
+    printf("%d,%d,%d,%d,%zd,%f\n",0,0,n_obj,max_weight,max_value,timeEnd-timeBegin);
 	
     free(values);	
     free(weights);
