@@ -2,20 +2,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import copy
 import numpy as np
-df = pd.read_csv("results-final.csv", delimiter = ',')
+df = pd.read_csv("final-lin.csv", delimiter = ',')
 
 # FILE_NAME,N_THREADS,CHUNK_SIZE,N_OBJ,MAX_WEIGHT,MAX_VALUE,TIME
 
 sort_df = df.sort_values(['N_THREADS'])
 
-
+df.describe()
 
 #1-49 exponencial
 # print sort_df.head()
 # print sort_df.tail()
 
 resumos = []
-
 for i in range(9):
 	sequencial = df.loc[df['N_THREADS'] == i]
 	describo = sequencial.describe()
@@ -25,46 +24,57 @@ for i in range(9):
 	resumos.append(copy.copy(saida2))
 
 
+print resumos[0]
 
-print resumos[6]['TIME']
-# resumos[6].plot()
-
-#fica tudo com uma so cor
+#gera qualquer grafico top
+cores = ['#aed6f1','#a3e4d7', '#a2d9ce', '#f9e79f', '#f8c471', '#f0b27a','#d98880','#f1948a','#af7ac5']
 # for i in range(9):
-# 	plt.bar(resumos[i]['N_THREADS'],resumos[i]['TIME'], color='#aed6f1')
+# 	plt.bar(resumos[i]['N_THREADS'],resumos[i]['TIME']['max'], color=cores[i])
 
-# #tempo de processamento maior entrada
-# plt.bar(resumos[0]['N_THREADS'],resumos[0]['TIME'], color='#aed6f1')
-# plt.bar(resumos[1]['N_THREADS'],resumos[1]['TIME'], color='#a3e4d7')
-# plt.bar(resumos[2]['N_THREADS'],resumos[2]['TIME'], color='#a2d9ce')
-# plt.bar(resumos[3]['N_THREADS'],resumos[3]['TIME'], color='#f9e79f')
-# plt.bar(resumos[4]['N_THREADS'],resumos[4]['TIME'], color='#f8c471')
-# plt.bar(resumos[5]['N_THREADS'],resumos[5]['TIME'], color='#f0b27a')
-# plt.bar(resumos[6]['N_THREADS'],resumos[6]['TIME'], color='#d98880')
-# plt.bar(resumos[7]['N_THREADS'],resumos[7]['TIME'], color='#f1948a')
-# plt.bar(resumos[8]['N_THREADS'],resumos[8]['TIME'], color='#af7ac5')
 
 # plt.xlabel("Threads usadas")
-# plt.ylabel("Tempo Maior Entrada")
-# plt.title("Escalabilidade")
+# plt.ylabel("Tempo Maior Entrada Exponencial")
+# plt.title("Escalabilidade")	
 # plt.show()
+# #salva grafico em um arquivo de saida
+# plt.savefig('./ThreadsxMaiorExp.png')
 
 
-#tempo de processamento menor entrada
-plt.bar(resumos[0]['N_THREADS'],resumos[0]['TIME']['min'], color='#aed6f1')
-plt.bar(resumos[1]['N_THREADS'],resumos[1]['TIME']['min'], color='#a3e4d7')
-plt.bar(resumos[2]['N_THREADS'],resumos[2]['TIME']['min'], color='#a2d9ce')
-plt.bar(resumos[3]['N_THREADS'],resumos[3]['TIME']['min'], color='#f9e79f')
-plt.bar(resumos[4]['N_THREADS'],resumos[4]['TIME']['min'], color='#f8c471')
-plt.bar(resumos[5]['N_THREADS'],resumos[5]['TIME']['min'], color='#f0b27a')
-plt.bar(resumos[6]['N_THREADS'],resumos[6]['TIME']['min'], color='#d98880')
-plt.bar(resumos[7]['N_THREADS'],resumos[7]['TIME']['min'], color='#f1948a')
-plt.bar(resumos[8]['N_THREADS'],resumos[8]['TIME']['min'], color='#af7ac5')
+speedups_max = []
+speedups_min = []
+
+Eficiencia_max = []
+Eficiencia_min = []
+
+# tmpSeq/p*Tparalelo
+for i in range(1,9):
+	#calculo speedup
+	s_max = resumos[0]['TIME']['max']/float(resumos[i]['TIME']['max'])
+	s_min = resumos[0]['TIME']['min']/float(resumos[i]['TIME']['min'])
+
+	#calculo eficiencia
+	e_max = resumos[0]['TIME']['max']/(float(resumos[i]['TIME']['max']) * i)
+	e_min = resumos[0]['TIME']['min']/(float(resumos[i]['TIME']['min']) * i)
+
+	speedups_max.append(round(s_max, 2))
+	speedups_min.append(round(s_min, 2))
+
+	Eficiencia_max.append(round(e_max, 2))
+	Eficiencia_min.append(round(e_min, 2))
+
+print Eficiencia_min
+print Eficiencia_max
+
+for i in range(0,8):
+	plt.bar(resumos[i+1]['N_THREADS'], Eficiencia_max[i], color=cores[i])
+
 
 plt.xlabel("Threads usadas")
-plt.ylabel("Tempo Menor Entrada")
-plt.title("Escalabilidade")
+plt.ylabel("Eficiencia")
+plt.title("Eficiencia Maior Entrada Linear")	
+plt.savefig('./Ef_max_lin.png')
 plt.show()
 
 
-#CALCULAR SPEEDUP CADA VERSAO
+#FALTA MEDIA/DESVIO PADRAO
+#Cálculo do speedup para 1, 2, 4, 8, 16 e infitos processadores, utilizando asleis de Amdahl.
