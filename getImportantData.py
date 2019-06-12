@@ -3,13 +3,14 @@
 from matplotlib import pyplot as plt 
 import pandas as pd
 import numpy as np 
+import os
 import sys
 
 if len(sys.argv) == 1:
     print("./getImportantData <file.csv>")
     sys.exit()
 
-df = pd.read_csv(sys.argv[1],delimiter=',',skiprows=20)
+df = pd.read_csv(sys.argv[1],delimiter=',')
 
 result = df.loc[(df['N_THREADS'] == 0) & (df['time'] >= 10)]
 
@@ -24,6 +25,7 @@ weights = []
 time = []
 
 for i in range(len(n_obj)):
+    #os.system("./createItem mochila_final/mf{}-{} {} {}".format(n_obj[i],max_weight[i],n_obj[i],max_weight[i]))
     result = df.loc[(df['n_obj'] == n_obj[i]) & (df['max_weight'] == max_weight[i])]
     result = result[['N_THREADS','n_obj','max_weight','time']]
     th.append(result['N_THREADS'].values.tolist())

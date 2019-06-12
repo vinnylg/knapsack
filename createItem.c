@@ -32,11 +32,11 @@ int main(int argc, char **argv){
     srand((unsigned int)stringToInt("paralela_eh_top"));
     int noi=atoi(argv[2]), mwi=atoi(argv[3]);
     fprintf(file,"%d %d\n",noi,mwi);
-    printf("%d %d\n",noi,mwi);
 
     for(int i=0; i<noi; i++){
         fprintf(file,"%d %d\n",numb(mwi),numb(mwi));
     }
+    printf("%s %d %d\n",argv[1],noi,mwi);
 
     fclose(file);
 
