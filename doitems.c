@@ -26,5 +26,5 @@ int main(){
             if(system(cmd));
         }
 
-    printf("\nfiles type: m[exp|lin]weight_max-n_obj\nto use all %d files, run ./test.sh [L1|L2|L3] [16]\n",count_files);
+    printf("\nfiles type: m[exp|lin]weight_max-n_obj\nto use all %d files, run ./test.sh [mexp|mlin] \n",count_files);
 }

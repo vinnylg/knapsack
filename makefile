@@ -1,4 +1,4 @@
-# FLAGS = -Wall -O2 -shared-libgcc -g
+#FLAGS = -Wall -O2 -shared-libgcc -g
 FLAGS = -O3 -Wall
 
 cc = gcc
