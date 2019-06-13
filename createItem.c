@@ -23,13 +23,13 @@ int stringToInt(char *str){
 }
 
 int main(int argc, char **argv){
-    if(!argv[1]||!argv[2]||!argv[3]) ERROR("USAGE: generateItems <file> <number_of_items> <max_wight_of_items>")
+    if(!argv[1]||!argv[2]||!argv[3]) ERROR("USAGE: createItem <file> <number_of_items> <max_wight_of_items>")
     
     FILE *file = fopen(argv[1],"w");
 
     if(!file) ERROR("File couldn't opened")    
 
-    srand((unsigned int)stringToInt("paralela_eh_top"));
+    srand((unsigned int)stringToInt("top"));
     int noi=atoi(argv[2]), mwi=atoi(argv[3]);
     fprintf(file,"%d %d\n",noi,mwi);
 
