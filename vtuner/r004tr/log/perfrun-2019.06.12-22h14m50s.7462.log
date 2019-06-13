@@ -1,0 +1,478 @@
+11 [140631591523520] INFO perfrun.launcher <> - Launcher main begin
+13 [140631591523520] INFO perfrun.launcher <> - MessageCatalogInit finished
+13 [140631591523520] INFO perfrun.launcher <> - Launcher instance created
+13 [140631591523520] INFO perfrun.launcher <> - argc = 6; cmdline = /opt/intel/vtune_amplifier_2019.4.0.597835/bin64/amplxe-runss --ui-output-format xml --ui-output-fd 47 --context-value-list 
+24 [140631591523520] INFO perfrun.launcher <> - plugin remoteplug has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin system has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin itt has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin ptracecollector has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin gpu has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin  has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin  has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin  has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin mrte has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin emon has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin cuscol has been added successfully
+24 [140631591523520] INFO perfrun.launcher <> - plugin stdsrc has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin sep has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin vtsspp has been added successfully
+25 [140631591523520] INFO perfrun.sdk <> - Reading value (3) from file: /proc/sys/kernel/perf_event_paranoid
+25 [140631591523520] INFO perfrun.launcher <> - plugin perf has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin tpss has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin exprof has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin media has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin ice has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin  has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin  has been added successfully
+25 [140631591523520] INFO perfrun.launcher <> - plugin parallelfs has been added successfully
+26 [140631591523520] INFO perfrun.launcher <> - plugin power has been added successfully
+26 [140631591523520] INFO perfrun.launcher <> - the option was added --interval: Specify an interval of data collection (for example, sampling) in milliseconds.
+27 [140631591523520] INFO perfrun.launcher <> - the option was added --follow-child: Profile process with or without children.
+27 [140631591523520] INFO perfrun.launcher <> - the option was added --gelding: BADMSG: perfrun1.launcher.plugin_manager::gelding
+28 [140631591523520] INFO perfrun.launcher <> - the option was added --time-source: Specify time source for measurement. Possible values: sys - wall clock time; tsc - time stamp counter; ext - time from an external source; auto - auto select accurate time source.
+29 [140631591523520] INFO perfrun.launcher <> - the option was added --stack: Enable or disable collection of stacks.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --stack-stitching: Enable or disable the stack stitching algorithm for Intel TBB-based applications.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --type: Specify type of data to be collected. For example, --type cpu:counters,waiting:nostack,io.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --mrte-mode: Specify Java/.NET/other managed runtime collection mode. Possible values: native - collect information only for native code; managed - collect information only for managed code; mixed - collect information for both managed and native code; auto - choose the mode based on binary type.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --mrte-mode-list: List supported Java/.NET/other managed runtime collection modes.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --mrte-type: Specify which managed runtimes to collect. Possible values: java - collect information for Java; dotnet - collect information for .NET; python - collect information for CPython. You can specify several values separated by comma.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --mrte-type-list: List supported Java/.NET/other managed runtime types.
+36 [140631591523520] INFO perfrun.launcher <> - the option was added --trace-strategy: Specify how to profile a process tree. <string> can be "<process>:trace:notrace" - profile the process but do not profile its children. Shorthand parameters: t - trace, nt - notrace. For example, "vtunedemo.exe:t:t".
+49 [140631591523520] INFO perfrun.launcher <> - the option was added --collector: BADMSG: perfrun1.launcher.plugin_manager::collector
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --system-wide: Enable system-wide profiling. This mode may require additional permissions.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --kvm-guest: Enable KVM guest OS profiling.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --kvm-guest-kallsyms: Specify a local path to the /proc/kallsyms file copied from the guest OS for proper symbol resolution.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --kvm-guest-modules: Specify a local path to the /proc/modules file copied from the guest OS for proper symbol resolution.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --dump-vdso: Dump [vdso] to result directory
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --bandwidth-limits: Measure bandwidth limits
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --acrn-map-info: Collect map info for ACRN
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --bandwidth-strategy: Bandwidth limits determination specific properties (example: --bandwidth-strategy array-size=0,duration=500).
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --bandwidth-config: List of benchmarks to run.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --system-collector-config: Specify subcollectors. Possible values: all, vdso, container, device-info, none.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --itt-config: Specify a sub-set of ITT API to collect.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --itt-debug: Set pseudo-breakpoint at ITT API collector's start to enable the debugger to attach early.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --ptrace: Ptrace collector.
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --target-pid: BADMSG: perfrun1.ptracecollector::target-pid
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --ptrace-server-pid: BADMSG: perfrun1.ptracecollector::ptrace-server-pid
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --ptrace-trace: BADMSG: perfrun1.ptracecollector::ptrace-trace
+52 [140631591523520] INFO perfrun.launcher <> - the option was added --ptrace-time-source: BADMSG: perfrun1.ptracecollector::ptrace-time-source
+55 [140631591523520] INFO perfrun.launcher <> - the option was added --ptrace-start-type: BADMSG: perfrun1.ptracecollector::ptrace-start-type
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --gpu-config: Specify types of GPU data to be collected. Possible values: preset1, preset2.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --gpu-debug: Enable self-testing of the GPGPU profiling collector.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --custom-collector: Allows to provide arbitrary command line to be run on collection steps.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --stdsrc-config: Specify Standard Sources category tag(s).
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --ftrace-config-list: List Linux Ftrace category tag(s).
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --ftrace-config: Specify Linux Ftrace category tag(s).
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --ftrace-function-groups: Enable tracing of specific groups of functions.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --event-info: BADMSG: perfrun1.stdsrc::event-info
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --cpu-list: List supported CPUs.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --target-list: List available targets for performing sampling collection.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --event-value-list: Display event information.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --platform-value-list: Display details of supported platforms.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --uncore-event-list: List uncore events for which a sampling data collection can be performed on this platform.
+58 [140631591523520] INFO perfrun.launcher <> - the option was added --modifier-list: Specify the event name <string> for which the modifiers list is requested.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --pmu-list: List supported PMUs.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --os-mode-only: Enable sampling data collection for OS-mode processes only.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --user-mode-only: Enable sampling data collection for user-mode processes only.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-config: Perform data collection for the events with <string> configured using the format <event name1>":modifier1=val:modifier2=val/constraint1={:modifier3=val:modifier4=val}...,"<event name2>":... Specify the events(s) to monitor and embed the event names within double quotes("). [:modifier=val] specifies individual event modifiers along with the respective values for a given platform. Note that the modifiers can be generic to an event as well as specific to a constraint (or an event qualifier). The constraint specific special modifiers appear after [/constraint=]. The modifiers can be in decimal or hexadecimal format. Only specific modifiers accept the value as a string. Each event specification is delimited by a comma (,). For a list of supported modifiers and constraints, refer to the documentation.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --chipset-event-config: Perform data collection for the chipset events with <string> configured using the format "<event name1>"...,"<event name2>":... Specify the events(s) to monitor and embed the event names within double quotes(").
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --uncore-event-config: Perform uncore data collection in ebc count mode for the events with <string> configured using the format "<event name1>"...,"<event name2>":... Specify the events(s) to monitor and embed the event names within double quotes(").
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --count-emon: Enable counting mode and output the data in EMON format.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-based-counts: Enable event-based counting mode. During sampling data collection, event counts data is collected for the list of events specified in -event-config option.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-mux-tfactor: Specify the event multiplexing tfactor as <integer> to set the length of the interval between interrupts. The larger the tfactor value, the larger the period between interrupts. Currently this option is only available on Intel platforms codenamed Knights Corner.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --full-pebs-capture: Capture full pebs information.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --last-branch-records: Capture Last Branch Records information.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --pmu-type: Specify the targeted PMU name as <string>.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --platform-type: Specify the targeted platform number as <number>.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --p-state-trigger: Specify the name of the trigger event for P-state data as <string>. The default trigger is CPU_CLK_UNHALTED.REF_TSC.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --bts-count: Specify the <integer> number of BTS records collected after each sample or context switch (VTSS++ only).
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --cpu-mask: Specify which CPU(s) <string> to collect data on. For example, specify "2-8,10,12-14" to sample only CPUs 2 through 8, 10, and 12 through 14.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-mux-alg: Specify the event multiplexing algorithm. Possible values: sequence, timer, trigger.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-mux-timeslice: Specify the event multiplexing time slice value as <integer>. The time slice specifies the duration between cycles for each event multiplexing group. The default value is 50 milliseconds. This option is valid only for timer-based event multiplexing. Specify the event multiplexing time slice value as <integer>. The time slice specifies the duration between cycles for each event multiplexing group. The default value is 1 millisecond. This option is valid only for timer-based event multiplexing.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-mux-factor: Specify the event multiplexing factor as <integer>. It controls the switching of event multiplexing groups. The default factor is 50. This option is valid only for trigger-based event multiplexing. Specify the event multiplexing factor as <integer>. It controls the switching of event multiplexing groups. The default factor is 1. This option is valid only for trigger-based event multiplexing.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --event-mux-trigger: Specify the name of the trigger event for event multiplexing as <string>. This option is valid only for trigger-based event multiplexing. The default trigger is CPU_CLK_UNHALTED.CORE (or CPU_CLK_UNHALTED.THREAD). BADMSG: perfrun1.vtsspp::event-mux-trigger
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --pt-mode: BADMSG: perfrun1.vtsspp::pt-mode
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --sample-after-multiplier: Specify the sample after multiplier as <double>. This multiplier modifies the sample after value for all the events specified in -event-config option. The values can range from 0.1 to 100.0. SAV multiplier value
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --uncore-sampling-interval: Specify the uncore sampling interval as <integer>. This value set the uncore sampling interval for all the uncore events specified in -event-config option.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --count: Enable counting mode. Enable counting mode
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --trace-mpi: Configure collector to trace MPI code.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --raw-perf-config: Specify a verified configuration for the Perf collector in the format: <describer>,<content>. For example: map-events-file,<path_to_map_events_file>.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --sys-config: BADMSG: perfrun1.vtsspp::sys-config Specify types of system data to be collected. Supported value: cswitch - collect context switch information.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --perf-event-config: Specify events for Perf collector in Perf format. For example: perf-event-config=cpu-clock.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --perf-aio: Number of control blocks in asynchronous trace writing mode.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --perf-compression: Specify compression of Perf collector output data. Possible levels: 0 - without compression, 1..3 - best speed, 4..22 - best compression that incurs big overhead.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --perf-min-mmap-read: Minimum data size read from the kernel mapped region.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --perf-affinity: Adjust an affinity mask of the Perf thread to a node with an allocated memory trace buffer.
+59 [140631591523520] INFO perfrun.launcher <> - the option was added --stackwalk: Specify stack unwinding method. Possible values: online - unwind stacks during collection; offline - unwind stacks after collection is finished. Specify stack unwinding method. Possible value: lbr - unwind stacks during collection. Specify stack unwinding method. Possible values: online - unwind stacks during collection; offline - unwind stacks after collection is finished; lbr - enable LBR-based call stack collection. Specify stack unwinding method. Possible values: online - unwind stacks during collection; offline - unwind stacks after collection is finished. Specify stack unwinding method. Possible values: online - unwind stacks during collection; offline - unwind stacks after collection is finished.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --filter-include: Filter data during collection. Possible values: contended=<on|off> - filter out uncontended events; contended_nostack=<time> - filter out stacks for contended events that take less than <time> microseconds; wait=<time> - ignore transitions and blocks with wait time less than <time> microseconds; wait_nostack=<time> - filter out stacks for waits that take less than <time> microseconds.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --debug-pin: Debug PIN tool and runtime.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --debug-exception: Disallow the application to set own abnormal termination handler.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --trace-type: Specify the trace file granularity. Possible values: per-thread - per-thread trace file generation; per-process - per-process trace file generation.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --instrumentation-type: Specify type of instrumentation.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --altstack: Enable or disable usage of altstacks for profiling signal handlers.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --profiling-signal: BADMSG: perfrun1.ptracecollector::profiling-signal Alternate profiling signal.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --memory-strategy: Specify a minimal memory object size to be traced and a hash table size for faster objects search; for example: --memory-strategy obj-size-min=1024,hash-table-size=4096.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --gpu-profiling-config: Specify a type of deep GPU profiling applied for all kernels and a comma-separated list of GPU kernel names and invocations in the following format: profiling_type[@kernel_name[:start_idx:step:stop_idx]], where profiling_type is one of following: none, bblatency, memlatency; kernel_name is the name of GPU kernel; start_idx is the number of the first invocation; and stop_idx is the number of the last invocation to be profiled.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --opencl-trace-mode: Specify OpenCL kernel tracing modes: 'default' to trace OpenCL kernels for Intel Graphics Driver only; 'epoch' for any non-Intel graphics, where OpenCL kernels will be traced and OpenCL profiling API timestamps will be interpreted as Unux Epoch time in nanoseconds; 'completion' to trace OpenCL kernels for any Graphics Driver and bind OpenCL profiling API timestamps to the timestamp of OpenCL completion callback.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --exprof-com-list: List available COM ports.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --exprof-dvc-list: List available DvC IDs.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --exprof-trace-channel: BADMSG: perfrun1.exprof::exprof-trace-channel
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --exprof-event-config: Specify ExactProfiling Event Classes.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --ice-pmons-list: BADMSG: perfrun1.ice::ice-pmons-list
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --ice-pmons-config: BADMSG: perfrun1.ice::ice-pmons-config
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --parallel-fs-config: Specify parallel fs counters to collect.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --pwr-config: BADMSG: perfrun1.vtsspp::pwr-config Specify power metrics configuration.
+60 [140631591523520] INFO perfrun.launcher <> - the option was added --socwatch-dir: Specify a directory where Intel SoC Watch collector is installed.
+61 [140631591523520] INFO perfrun.launcher <> - create msngr2::ICliToolContext
+62 [140631591523520] INFO perfrun.launcher <> - create file finder object
+117 [140631471691520] ERROR perfrun.gpu <> - Cannot get global symbol PlatformIndex it seems that MD API is too old 0, at file: vcs/perfrun1/plugins/gpu/src/event_consumer_univ.cpp:266
+117 [140631471691520] ERROR perfrun.gpu <> - gh2::internal::unconditional_alert() 'ConsumerInitializationError(ConsumerInitializationError::ceUnsupportedInterfaceVersion)'
+vcs/perfrun1/plugins/gpu/src/event_consumer_univ.cpp(276): void runtool::gpu::EventConsumerUniversal::initialize()
+, at file: vcs/perfrun1/plugins/gpu/src/event_consumer_univ.cpp:276
+117 [140631471691520] ERROR perfrun.gpu <> - Exception has been thrown, message is: "<none>", at file: vcs/perfrun1/plugins/gpu/src/error_handling.hpp:53
+119 [140631471691520] INFO perfrun.gpu <> -  ' modinfo i915 ' returned: filename:       /lib/modules/4.15.0-51-generic/kernel/drivers/gpu/drm/i915/i915.ko
+license:        GPL and additional rights
+description:    Intel Graphics
+author:         Intel Corporation
+author:         Tungsten Graphics, Inc.
+firmware:       i915/bxt_dmc_ver1_07.bin
+firmware:       i915/skl_dmc_ver1_26.bin
+firmware:       i915/kbl_dmc_ver1_01.bin
+firmware:       i915/glk_dmc_ver1_04.bin
+firmware:       i915/kbl_guc_ver9_14.bin
+firmware:       i915/bxt_guc_ver8_7.bin
+firmware:       i915/skl_guc_ver6_1.bin
+firmware:       i915/kbl_huc_ver02_00_1810.bin
+firmware:       i915/bxt_huc_ver01_07_1398.bin
+firmware:       i915/skl_huc_ver01_07_1398.bin
+srcversion:     0FACC9221A967208BF638B5
+alias:          pci:v00008086d00005A79sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A71sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A49sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A41sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A59sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A51sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A4Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A42sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A5Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A52sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA4sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA3sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA2sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA0sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA1sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA8sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA7sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA6sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA5sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003EA9sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E94sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E9Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E9Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E98sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E96sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E92sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E91sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E99sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E93sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003E90sv*sd*bc03sc*i*
+alias:          pci:v00008086d000087C0sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000591Csv*sd*bc03sc*i*
+alias:          pci:v00008086d0000593Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00005927sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005926sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005923sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000591Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000591Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000591Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00005912sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000591Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00005921sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005917sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005916sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000590Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000590Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00005908sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005902sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000590Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00005906sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005915sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005913sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003185sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003184sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A85sv*sd*bc03sc*i*
+alias:          pci:v00008086d00005A84sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001A85sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001A84sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A84sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000193Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000192Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000193Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000193Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001932sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000192Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000192Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001927sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001926sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001923sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000191Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000191Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000191Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001912sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000191Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00001921sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001916sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000190Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000190Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001902sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000190Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00001906sv*sd*bc03sc*i*
+alias:          pci:v00008086d000022B3sv*sd*bc03sc*i*
+alias:          pci:v00008086d000022B2sv*sd*bc03sc*i*
+alias:          pci:v00008086d000022B1sv*sd*bc03sc*i*
+alias:          pci:v00008086d000022B0sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000163Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000163Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000163Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000163Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001636sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001632sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000162Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000162Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000162Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000162Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001626sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001622sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000161Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000161Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000161Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000161Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001616sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001612sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000160Dsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000160Asv*sd*bc03sc*i*
+alias:          pci:v00008086d0000160Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000160Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00001606sv*sd*bc03sc*i*
+alias:          pci:v00008086d00001602sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000155sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000157sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000F33sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000F32sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000F31sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000F30sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D26sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A2Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A26sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C26sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D2Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D2Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D2Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D22sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A2Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A2Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A22sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C2Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C2Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C2Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C22sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000042Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000042Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000042Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000422sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D16sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A1Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A16sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C16sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000426sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000416sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D1Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D1Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D1Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D12sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A1Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A1Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A12sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C1Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C1Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C1Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C12sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000041Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000041Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000041Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000412sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D06sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A0Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A06sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C06sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000406sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D0Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D0Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D0Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000D02sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A0Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A0Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000A02sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C0Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C0Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C0Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000C02sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000040Esv*sd*bc03sc*i*
+alias:          pci:v00008086d0000040Bsv*sd*bc03sc*i*
+alias:          pci:v00008086d0000040Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000402sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000016Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000162sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000015Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000152sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000166sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000156sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000016Asv0000152Dsd00008990bc03sc*i*
+alias:          pci:v00008086d00000126sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000116sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000106sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000122sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000112sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000010Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00000102sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000046sv*sd*bc03sc*i*
+alias:          pci:v00008086d00000042sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000A011sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000A001sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002E92sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002E42sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002E32sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002E22sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002E12sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002E02sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002A42sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002A12sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002A02sv*sd*bc03sc*i*
+alias:          pci:v00008086d000029D2sv*sd*bc03sc*i*
+alias:          pci:v00008086d000029C2sv*sd*bc03sc*i*
+alias:          pci:v00008086d000029B2sv*sd*bc03sc*i*
+alias:          pci:v00008086d000029A2sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002992sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002982sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002972sv*sd*bc03sc*i*
+alias:          pci:v00008086d000027AEsv*sd*bc03sc*i*
+alias:          pci:v00008086d000027A2sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002772sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002592sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000258Asv*sd*bc03sc*i*
+alias:          pci:v00008086d00002582sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002572sv*sd*bc03sc*i*
+alias:          pci:v00008086d0000358Esv*sd*bc03sc*i*
+alias:          pci:v00008086d00003582sv*sd*bc03sc*i*
+alias:          pci:v00008086d00002562sv*sd*bc03sc*i*
+alias:          pci:v00008086d00003577sv*sd*bc03sc*i*
+depends:        drm_kms_helper,drm,video,i2c-algo-bit
+retpoline:      Y
+intree:         Y
+name:           i915
+vermagic:       4.15.0-51-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+parm:           modeset:Use kernel modesetting [KMS] (0=disable, 1=on, -1=force vga console preference [default]) (int)
+parm:           panel_ignore_lid:Override lid status (0=autodetect, 1=autodetect disabled [default], -1=force lid closed, -2=force lid open) (int)
+parm:           semaphores:Use semaphores for inter-ring sync (default: -1 (use per-chip defaults)) (int)
+parm:           enable_rc6:Enable power-saving render C-state 6. Different stages can be selected via bitmask values (0 = disable; 1 = enable rc6; 2 = enable deep rc6; 4 = enable deepest rc6). For example, 3 would enable rc6 and deep rc6, and 7 would enable everything. default: -1 (use per-chip default) (int)
+parm:           enable_dc:Enable power-saving display C-states. (-1=auto [default]; 0=disable; 1=up to DC5; 2=up to DC6) (int)
+parm:           enable_fbc:Enable frame buffer compression for power savings (default: -1 (use per-chip default)) (int)
+parm:           lvds_channel_mode:Specify LVDS channel mode (0=probe BIOS [default], 1=single-channel, 2=dual-channel) (int)
+parm:           panel_use_ssc:Use Spread Spectrum Clock with panels [LVDS/eDP] (default: auto from VBT) (int)
+parm:           vbt_sdvo_panel_type:Override/Ignore selection of SDVO panel mode in the VBT (-2=ignore, -1=auto [default], index in VBT BIOS table) (int)
+parm:           reset:Attempt GPU resets (0=disabled, 1=full gpu reset, 2=engine reset [default]) (int)
+parm:           vbt_firmware:Load VBT from specified file under /lib/firmware (charp)
+parm:           error_capture:Record the GPU state following a hang. This information in /sys/class/drm/card<N>/error is vital for triaging and debugging hangs. (bool)
+parm:           enable_hangcheck:Periodically check GPU activity for detecting hangs. WARNING: Disabling this can cause system wide hangs. (default: true) (bool)
+parm:           enable_ppgtt:Override PPGTT usage. (-1=auto [default], 0=disabled, 1=aliasing, 2=full, 3=full with extended address space) (int)
+parm:           enable_execlists:Override execlists usage. (-1=auto [default], 0=disabled, 1=enabled) (int)
+parm:           enable_psr:Enable PSR (0=disabled, 1=enabled - link mode chosen per-platform, 2=force link-standby mode, 3=force link-off mode) Default: -1 (use per-chip default) (int)
+parm:           alpha_support:Enable alpha quality driver support for latest hardware. See also CONFIG_DRM_I915_ALPHA_SUPPORT. (bool)
+parm:           disable_power_well:Disable display power wells when possible (-1=auto [default], 0=power wells always on, 1=power wells disabled when possible) (int)
+parm:           enable_ips:Enable IPS (default: true) (int)
+parm:           fastboot:Try to skip unnecessary mode sets at boot time (default: false) (bool)
+parm:           prefault_disable:Disable page prefaulting for pread/pwrite/reloc (default:false). For developers only. (bool)
+parm:           load_detect_test:Force-enable the VGA load detect code for testing (default:false). For developers only. (bool)
+parm:           force_reset_modeset_test:Force a modeset during gpu reset for testing (default:false). For developers only. (bool)
+parm:           invert_brightness:Invert backlight brightness (-1 force normal, 0 machine defaults, 1 force inversion), please report PCI device ID, subsystem vendor and subsystem device ID to dri-devel@lists.freedesktop.org, if your machine needs it. It will then be included in an upcoming module version. (int)
+parm:           disable_display:Disable display (default: false) (bool)
+parm:           enable_cmd_parser:Enable command parsing (true=enabled [default], false=disabled) (bool)
+parm:           mmio_debug:Enable the MMIO debug code for the first N failures (default: off). This may negatively affect performance. (int)
+parm:           verbose_state_checks:Enable verbose logs (ie. WARN_ON()) in case of unexpected hw state conditions. (bool)
+parm:           nuclear_pageflip:Force enable atomic functionality on platforms that don't have full support yet. (bool)
+parm:           edp_vswing:Ignore/Override vswing pre-emph table selection from VBT (0=use value from vbt [default], 1=low power swing(200mV),2=default swing(400mV)) (int)
+parm:           enable_guc_loading:Enable GuC firmware loading (-1=auto, 0=never [default], 1=if available, 2=required) (int)
+parm:           enable_guc_submission:Enable GuC submission (-1=auto, 0=never [default], 1=if available, 2=required) (int)
+parm:           guc_log_level:GuC firmware logging level (-1:disabled (default), 0-3:enabled) (int)
+parm:           guc_firmware_path:GuC firmware path to use instead of the default one (charp)
+parm:           huc_firmware_path:HuC firmware path to use instead of the default one (charp)
+parm:           enable_dp_mst:Enable multi-stream transport (MST) for new DisplayPort sinks. (default: true) (bool)
+parm:           inject_load_failure:Force an error after a number of failure check points (0:disabled (default), N:force failure at the Nth failure check point) (uint)
+parm:           enable_dpcd_backlight:Enable support for DPCD backlight control (default:false) (bool)
+parm:           enable_gvt:Enable support for Intel GVT-g graphics virtualization host support(default:false) (bool)
+
+120 [140631471691520] INFO perfrun.gpu <> - Found driver location is: /lib/modules/4.15.0-51-generic/kernel/drivers/gpu/drm/i915/i915.ko
+123 [140631471691520] INFO perfrun.gpu <> - Can't find the patched symbol: OA cfg too long to fit into workarond BB
+143 [140631471691520] INFO perfrun.sepdk <> - "/opt/intel/vtune_amplifier_2019.4.0.597835/bin64/sep" -version
+153 [140631471691520] INFO perfrun.sepdk <> - SEP version is 5.9
+153 [140631471691520] INFO perfrun.sepdk <> - PAX version is 1.0
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = targetOS; value = Linux
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = OS; value = Linux
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = OSBuildNumber; value = 0
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = OSBitness; value = 64
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = RootPrivileges; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isPtraceScopeLimited; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isCATSupportedByCPU; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isTSXAvailable; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isHTEnabled; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = fpgaOnBoard; value = None
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = omniPathOnBoard; value = None
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = pciClassParts; value = 
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isSGXAvailable; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = LinuxRelease; value = 4.15.0-51-generic
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = is3DXPPresent; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = is3DXP2LMMode; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = is3DXPAppDirectMode; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = IsNUMANodeWithoutCPUsPresent; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = Hypervisor; value = None
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = PerfmonVersion; value = 3
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isMaxDRAMBandwidthMeasurementSupported; value = true
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isPtraceAvailable; value = true
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = areGpuHardwareMetricsAvailable; value = UnsupportedInterfaceVersion
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = i915Status; value = KernelNotPatched
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isFtraceAvailable; value = ftraceAccessError,debugfsNotAccessible
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isMdfEtwAvailable; value = false
+154 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isCSwitchAvailable; value = no
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isGpuBusynessAvailable; value = i915TracepointsConfigOff,notAccessible
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isGpuWaitAvailable; value = no
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isFunctionTracingAvailable; value = no
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isIowaitTracingAvailable; value = no
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isVSyncAvailable; value = no
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isPAXDriverLoaded; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = HypervisorType; value = None
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isDeviceOrCredentialGuardEnabled; value = false
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isSEPDriverAvailable; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = platformType; value = 81
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = CPU_NAME; value = Intel(R) Core(TM) Processor 2xxx Series code named Sandybridge
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = PMU; value = snb
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = availablePmuTypes; value = core,cbo,imc,gt,ncu,power
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = referenceFrequency; value = 3100000000
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isPStateAvailable; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isVTSSPPDriverAvailable; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isNMIWatchDogTimerRunning; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = LinuxPerfCredentials; value = Restricted
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = LinuxPerfCapabilities; value = NotAvailable
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = LinuxPerfStackCapabilities; value = NotAvailable
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isTPSSAvailable; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isPytraceAvailable; value = true
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isGENDebugInfoAvailable; value = false
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isGTPinCollectionAvailable; value = ErrorUnsupportedHardware
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isSTTAvailable; value = no
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isNnpiHwTraceToolAvailable; value = false
+155 [140631591523520] INFO perfrun.launcher <> - Put into the variant bag the context value: name = isEnergyCollectionSupported; value = false
+156 [140631591523520] INFO perfrun.launcher <> - Application exit code: 0
+156 [140631591523520] INFO perfrun.launcher <> - Exit code: 0

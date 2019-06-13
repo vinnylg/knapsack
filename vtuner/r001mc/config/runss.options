@@ -1,0 +1,17 @@
+-r
+/home/vinicius/Documents/Trabalhos/paralela/knapsack/vtuner/r001mc
+--stack-stitching
+--data-limit-mb=0
+--disk-space-limit=0
+--mrte-type=java,python
+--type=memory
+--memory-strategy=obj-size-min=32,hash-table-size=0
+--itt-config=frame
+--itt-config=task,event,counter
+--stackwalk=offline
+--mrte-mode=auto
+--
+/home/vinicius/Documents/Trabalhos/paralela/knapsack/p_knap
+items/mf80000-200000
+4
+256
