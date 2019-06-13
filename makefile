@@ -3,7 +3,7 @@ FLAGS = -O3 -Wall
 
 cc = gcc
 
-all: knap p_knap #createItem doitems items
+all: knap p_knap createItem doitems items
 
 knap: knapsack.c
 	$(cc) $(FLAGS) -o$@ $^
