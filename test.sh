@@ -2,39 +2,46 @@
 
 PAR=./p_knap
 SEQ=./knap
-DIR=./items/$1
-ITEMS=$(ls -v $DIR"mf"*)
 DATE="$(date +"%H%M")"
-OUT=mochila_final/result.$DATE-
-OUT2=mochila_final/pcinfo.$DATE
-echo "INFO-PC" >> $OUT2
-lscpu | grep CPU* >> $OUT2
-lscpu | grep Thread >> $OUT2
-lscpu | grep cache >> $OUT2
 
 L2=$(lscpu | grep  L2)
 L2=${L2#*: }
 L2=${L2%K}
 
-free -m >> $OUT2
+L2=132
 
-echo "Cache memory used: $L2" >> $OUT2
-
-for i in {1..20}
+for subdir in {0,1}
 do
-	echo "N_THREADS,CHUNK_SIZE,n_obj,max_weight,max_value,time" >> "$OUT$i"
-	for ITEM in $ITEMS
+	OUT=mochila_final/$subdir/result-
+
+	if [ $subdir -eq 0 ]
+	then
+		knapsacks=(100000 200000 400000 800000)
+	else
+		knapsacks=(30000 60000 120000 240000)
+	fi
+
+	for i in {1..20}
 	do
-		echo "$SEQ $ITEM $OUT$i" 
-		time nice -n -20 $SEQ $ITEM >> "$OUT$i"
-		echo ""
-		for TH in {2,4,8}
+		DIR=./items/$subdir/
+		for knapsack in "${knapsacks[@]}"
 		do
-			echo $PAR $ITEM $TH $L2 $OUT$i
-			time nice -n -20 $PAR $ITEM $TH $L2 >> "$OUT$i"
-			echo ""
+			echo "N_THREADS,CHUNK_SIZE,n_obj,max_weight,max_value,time" > "$OUT$i-m$knapsack"
+			ITEMS=$(ls -v $DIR"mf$knapsack"*)
+			for ITEM in $ITEMS
+			do
+				echo "$SEQ $ITEM $OUT$i-m$knapsack" 
+				time nice -n -20 $SEQ $ITEM >> "$OUT$i-m$knapsack"
+				echo ""
+				for TH in {2,4,8}
+				do
+					echo $PAR $ITEM $TH $L2 $OUT$i-m$knapsack
+					time nice -n -20 $PAR $ITEM $TH $L2 >> "$OUT$i-m$knapsack"
+					echo ""
+				done
+			done
 		done
 	done
 done
-echo "sucess all"
+	echo "sucess all"
 echo ""
