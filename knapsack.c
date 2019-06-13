@@ -46,6 +46,7 @@ void read_file(FILE *input, int *value, int *weight, int i){
 }                                                                                                     
 
 int main(int argc, char **argv){
+    double timeBegin = timestamp();
     if(!argv[1]) ERROR("USAGE: knapsack <file_of_items>")
     
     FILE *file = fopen(argv[1],"r");
@@ -69,17 +70,14 @@ int main(int argc, char **argv){
         memset(bottom[i],0,(max_weight+1) * sizeof(size_t));
     }
 
-    double timeBegin = timestamp();
     size_t max_value = knapsack(values,weights,n_obj,max_weight,bottom);
-    double timeEnd = timestamp();
-    char arq[30];
-    sscanf(argv[1],"./items/%s",arq);
-    printf("%d,%d,%d,%d,%zd,%f\n",0,0,n_obj,max_weight,max_value,timeEnd-timeBegin);
 	
     free(values);	
     free(weights);
     free(bottom[0]);
     free(bottom[1]);
     free(bottom);
+    double timeEnd = timestamp();
+    printf("%d,%d,%d,%d,%zd,%f\n",0,0,n_obj,max_weight,max_value,timeEnd-timeBegin);
     return 0;
 }
