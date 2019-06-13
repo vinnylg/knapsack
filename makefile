@@ -3,7 +3,7 @@ FLAGS = -O3 -Wall
 
 cc = gcc
 
-all: knap p_knap createItem doitems items
+all: knap p_knap createItem
 
 knap: knapsack.c
 	$(cc) $(FLAGS) -o$@ $^
@@ -14,11 +14,5 @@ p_knap: p_knapsack.c
 createItem: createItem.c
 	$(cc) $(FLAGS) -o$@ $^
 
-doitems: doitems.c
-	$(cc) $(FLAGS) -o$@ $^
-
-items:
-	mkdir items
-
 clean: 
-	rm -rf *knap *tem 
+	rm -rf *knap  
