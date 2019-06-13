@@ -14,7 +14,7 @@ p_knap: p_knapsack.c
 createItem: createItem.c
 	$(cc) $(FLAGS) -o$@ $^
 
-doitems: doitems.c
+doitem: doitem.c
 	$(cc) $(FLAGS) -o$@ $^
 
 items:
