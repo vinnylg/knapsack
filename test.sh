@@ -20,8 +20,8 @@ free -m >> $OUT2
 
 echo "Cache memory used: $L2" >> $OUT2
 
-#for i in {1..20}
-#do
+for i in {1..20}
+do
 	echo "N_THREADS,CHUNK_SIZE,n_obj,max_weight,max_value,time" >> "$OUT$i"
 	for ITEM in $ITEMS
 	do
@@ -35,7 +35,7 @@ echo "Cache memory used: $L2" >> $OUT2
 			echo ""
 		done
 	done
-#done
+done
 echo "sucess all"
 echo ""
 
