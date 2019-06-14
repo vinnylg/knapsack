@@ -66,8 +66,93 @@ def main():
 		df.insert(8,"spUp",speedUp)
 		df.insert(9,"eff",efficiency)
 		df = df.drop(['CHUNK_SIZE','max_weight','max_value'], axis=1)
-		df = df.round(4)
-		df.to_csv("result/metrics-m{}.csv".format(weight), encoding='utf-8',index = False)
+		saida = df.round(4)
+		saida.to_csv("result/metrics-m{}.csv".format(weight), encoding='utf-8',index = False)
+
+		TH1 = df.loc[df['N_THREADS'] == 0]
+		objs = TH1['n_obj'].values.tolist()
+		CPU1 = TH1['time'].values.tolist()
+		
+		TH2 = df.loc[df['N_THREADS'] == 2]
+		CPU2 = TH2['time'].values.tolist()
+		
+		TH4 = df.loc[df['N_THREADS'] == 4]
+		CPU4 = TH4['time'].values.tolist()
+		
+		TH8 = df.loc[df['N_THREADS'] == 8]
+		CPU8 = TH8['time'].values.tolist()
+
+
+		graphTime = pd.DataFrame({
+			'1 CPU' : CPU1,
+			'2 CPU' : CPU2,
+			'4 CPU' : CPU4,
+			'8 CPU' : CPU8
+		})
+		
+		width = .5
+		graphTime.plot(kind='bar', width = width)
+		ax = plt.gca()		
+		plt.xlim([-width, len(graphTime['1 CPU'])-width])
+
+		objs = list(map(str,objs))
+		ax.set_xticklabels((objs))
+		ax.set_xlabel('Numero de Objetos')
+		ax.set_ylabel('Tempo')
+		ax.set_title('Peso da mochila {}'.format(weight))
+		plt.savefig('result/graphTime-m{}'.format(weight),transparent=True,bbox_inches='tight')
+
+
+		spUp1 = TH1['spUp'].values.tolist()
+		spUp2 = TH2['spUp'].values.tolist()
+		spUp4 = TH4['spUp'].values.tolist()
+		spUp8 = TH8['spUp'].values.tolist()
+
+
+		graphSpeedUp = pd.DataFrame({
+			'1 CPU' : spUp1,
+			'2 CPU' : spUp2,
+			'4 CPU' : spUp4,
+			'8 CPU' : spUp8
+		})
+		
+		width = .5
+		graphSpeedUp.plot(kind='bar', width = width)
+		ax = plt.gca()		
+		plt.xlim([-width, len(graphSpeedUp['1 CPU'])-width])
+
+		objs = list(map(str,objs))
+		ax.set_xticklabels((objs))
+		ax.set_xlabel('Numero de Objetos')
+		ax.set_ylabel('Speed Up')
+		ax.set_title('Peso da mochila {}'.format(weight))
+		plt.savefig('result/graphSpUp-m{}'.format(weight),transparent=True,bbox_inches='tight')
+		
+	
+		eff1 = TH1['eff'].values.tolist()
+		eff2 = TH2['eff'].values.tolist()
+		eff4 = TH4['eff'].values.tolist()
+		eff8 = TH8['eff'].values.tolist()
+
+
+		graphEff = pd.DataFrame({
+			'1 CPU' : eff1,
+			'2 CPU' : eff2,
+			'4 CPU' : eff4,
+			'8 CPU' : eff8
+		})
+		
+		width = .5
+		graphEff.plot(kind='bar', width = width)
+		ax = plt.gca()		
+		plt.xlim([-width, len(graphEff['1 CPU'])-width])
+
+		objs = list(map(str,objs))
+		ax.set_xticklabels((objs))
+		ax.set_xlabel('Numero de Objetos')
+		ax.set_ylabel('Eficiencia')
+		ax.set_title('Peso da mochila {}'.format(weight))
+		plt.savefig('result/graphEff-m{}'.format(weight),transparent=True,bbox_inches='tight')
 
 main()
 
