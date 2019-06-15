@@ -55,12 +55,9 @@ def main():
 		threads = map(lambda x: 1 if x==0 else x, threads)
 		speedUp = [0.0]*len(threads)
 		efficiency = [0.0]*len(threads)
-
+		print media
 		for i  in range(len(threads)):
-			seq = 1.0
-			if( threads[i] == 1 ):
-				seq = media[i]
-			speedUp[i] = seq/media[i]
+			speedUp[i] = media[0]/media[i]*threads[i]
 			efficiency[i] = speedUp[i]/threads[i]
 		
 		df.insert(8,"spUp",speedUp)
@@ -121,7 +118,6 @@ def main():
 		ax = plt.gca()		
 		plt.xlim([-width, len(graphSpeedUp['1 CPU'])-width])
 
-		objs = list(map(str,objs))
 		ax.set_xticklabels((objs))
 		ax.set_xlabel('Numero de Objetos')
 		ax.set_ylabel('Speed Up')
@@ -147,7 +143,6 @@ def main():
 		ax = plt.gca()		
 		plt.xlim([-width, len(graphEff['1 CPU'])-width])
 
-		objs = list(map(str,objs))
 		ax.set_xticklabels((objs))
 		ax.set_xlabel('Numero de Objetos')
 		ax.set_ylabel('Eficiencia')
