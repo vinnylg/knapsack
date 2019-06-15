@@ -59,7 +59,7 @@ def main():
 		for i  in range(len(threads)):
 			if threads[i] == 1:
 				seq = media[i]
-			speedUp[i] = seq/media[i]*threads[i]
+			speedUp[i] = seq/media[i]
 			efficiency[i] = speedUp[i]/threads[i]
 			print("i: {}\tseq: {}\tthreads[i]: {}\tmedia[i]: {}\t spUp[i]: {}\teff[i]: {}".format(i,seq,threads[i],media[i],speedUp[i],efficiency[i]))
 		
