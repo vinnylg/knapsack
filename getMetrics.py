@@ -25,7 +25,7 @@ def get_files(path,arq):
 def main():
 
 	if len(sys.argv) != 2:
-		print("./getImportantData <file.csv>")
+		print("./getImportantData <path_to_files.csv>")
 		sys.exit()
 	
 	for weight in [100000,200000,400000,800000]:	
@@ -55,9 +55,11 @@ def main():
 		threads = map(lambda x: 1 if x==0 else x, threads)
 		speedUp = [0.0]*len(threads)
 		efficiency = [0.0]*len(threads)
-		print media
+		seq = 0.0
 		for i  in range(len(threads)):
-			speedUp[i] = media[0]/media[i]*threads[i]
+			if threads[i] == 1:
+				seq = threads[i]
+			speedUp[i] = seq/media[i]*threads[i]
 			efficiency[i] = speedUp[i]/threads[i]
 		
 		df.insert(8,"spUp",speedUp)
@@ -65,6 +67,7 @@ def main():
 		df = df.drop(['CHUNK_SIZE','max_weight','max_value'], axis=1)
 		saida = df.round(4)
 		saida.to_csv("result/metrics-m{}.csv".format(weight), encoding='utf-8',index = False)
+		print ("result/metrics-m{}.csv".format(weight))		
 
 		TH1 = df.loc[df['N_THREADS'] == 0]
 		objs = TH1['n_obj'].values.tolist()
@@ -97,8 +100,8 @@ def main():
 		ax.set_xlabel('Numero de Objetos')
 		ax.set_ylabel('Tempo')
 		ax.set_title('Peso da mochila {}'.format(weight))
-		plt.savefig('result/graphTime-m{}'.format(weight),transparent=True,bbox_inches='tight')
-
+		plt.savefig('result/graphTime-m{}'.format(weight),bbox_inches='tight')
+		print('result/graphTime-m{}'.format(weight))
 
 		spUp1 = TH1['spUp'].values.tolist()
 		spUp2 = TH2['spUp'].values.tolist()
@@ -122,8 +125,8 @@ def main():
 		ax.set_xlabel('Numero de Objetos')
 		ax.set_ylabel('Speed Up')
 		ax.set_title('Peso da mochila {}'.format(weight))
-		plt.savefig('result/graphSpUp-m{}'.format(weight),transparent=True,bbox_inches='tight')
-		
+		plt.savefig('result/graphSpUp-m{}'.format(weight),bbox_inches='tight')
+		print('result/graphSpUp-m{}'.format(weight))
 	
 		eff1 = TH1['eff'].values.tolist()
 		eff2 = TH2['eff'].values.tolist()
@@ -147,8 +150,12 @@ def main():
 		ax.set_xlabel('Numero de Objetos')
 		ax.set_ylabel('Eficiencia')
 		ax.set_title('Peso da mochila {}'.format(weight))
-		plt.savefig('result/graphEff-m{}'.format(weight),transparent=True,bbox_inches='tight')
+		plt.savefig('result/graphEff-m{}'.format(weight),bbox_inches='tight')
+		print('result/graphEff-m{}'.format(weight))
 
+		#table = plt.table()
+		#rows = ['T(p)','S(p)','E(p)']
+		
 main()
 
 
