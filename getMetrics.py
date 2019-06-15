@@ -58,9 +58,10 @@ def main():
 		seq = 0.0
 		for i  in range(len(threads)):
 			if threads[i] == 1:
-				seq = threads[i]
+				seq = media[i]
 			speedUp[i] = seq/media[i]*threads[i]
 			efficiency[i] = speedUp[i]/threads[i]
+			print("i: {}\tseq: {}\tthreads[i]: {}\tmedia[i]: {}\t spUp[i]: {}\teff[i]: {}".format(i,seq,threads[i],media[i],speedUp[i],efficiency[i]))
 		
 		df.insert(8,"spUp",speedUp)
 		df.insert(9,"eff",efficiency)
