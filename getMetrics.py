@@ -28,7 +28,10 @@ def main():
 		print("./getImportantData <path_to_files.csv>")
 		sys.exit()
 	
-	for weight in [100000,200000,400000,800000]:	
+	mochilas = pd.DataFrame(columns=['N_THREADS','n_obj','time','mean','dp','spUp','eff','weight'])
+	weights = [100000,200000,400000,800000,1600000]
+
+	for weight in weights:	
 		knapsacks = get_files(sys.argv[1],str(weight))
 		timeSum = 0.0
 		times = []
@@ -61,7 +64,6 @@ def main():
 				seq = media[i]
 			speedUp[i] = seq/media[i]
 			efficiency[i] = speedUp[i]/threads[i]
-			print("i: {}\tseq: {}\tthreads[i]: {}\tmedia[i]: {}\t spUp[i]: {}\teff[i]: {}".format(i,seq,threads[i],media[i],speedUp[i],efficiency[i]))
 		
 		df.insert(8,"spUp",speedUp)
 		df.insert(9,"eff",efficiency)
@@ -72,16 +74,16 @@ def main():
 
 		TH1 = df.loc[df['N_THREADS'] == 0]
 		objs = TH1['n_obj'].values.tolist()
-		CPU1 = TH1['time'].values.tolist()
+		CPU1 = TH1['mean'].values.tolist()
 		
 		TH2 = df.loc[df['N_THREADS'] == 2]
-		CPU2 = TH2['time'].values.tolist()
+		CPU2 = TH2['mean'].values.tolist()
 		
 		TH4 = df.loc[df['N_THREADS'] == 4]
-		CPU4 = TH4['time'].values.tolist()
+		CPU4 = TH4['mean'].values.tolist()
 		
 		TH8 = df.loc[df['N_THREADS'] == 8]
-		CPU8 = TH8['time'].values.tolist()
+		CPU8 = TH8['mean'].values.tolist()
 
 
 		graphTime = pd.DataFrame({
@@ -117,7 +119,6 @@ def main():
 			'8 CPU' : spUp8
 		})
 		
-		width = .5
 		graphSpeedUp.plot(kind='bar', width = width)
 		ax = plt.gca()		
 		plt.xlim([-width, len(graphSpeedUp['1 CPU'])-width])
@@ -142,7 +143,6 @@ def main():
 			'8 CPU' : eff8
 		})
 		
-		width = .5
 		graphEff.plot(kind='bar', width = width)
 		ax = plt.gca()		
 		plt.xlim([-width, len(graphEff['1 CPU'])-width])
@@ -154,8 +154,93 @@ def main():
 		plt.savefig('result/graphEff-m{}'.format(weight),bbox_inches='tight')
 		print('result/graphEff-m{}'.format(weight))
 
-		#table = plt.table()
-		#rows = ['T(p)','S(p)','E(p)']
+		df["weight"] = weight
+		objs = df.loc[ df['n_obj'] == 400000 ]
+		mochilas = mochilas.append(objs)
+
+
+	TH1 = mochilas.loc[df['N_THREADS'] == 0]
+	CPU1 = TH1['mean'].values.tolist()
+	
+	TH2 = mochilas.loc[df['N_THREADS'] == 2]
+	CPU2 = TH2['mean'].values.tolist()
+	
+	TH4 = mochilas.loc[df['N_THREADS'] == 4]
+	CPU4 = TH4['mean'].values.tolist()
+	
+	TH8 = mochilas.loc[df['N_THREADS'] == 8]
+	CPU8 = TH8['mean'].values.tolist()
+	
+	mochilasGraphTime = pd.DataFrame({
+	 	'1 CPU' : CPU1,
+	 	'2 CPU' : CPU2,
+	 	'4 CPU' : CPU4,
+	 	'8 CPU' : CPU8
+	})
+
+	mochilasGraphTime.plot(kind='bar', width = width)
+	ax = plt.gca()		
+	plt.xlim([-width, len(mochilasGraphTime['1 CPU'])-width])
+
+	weights = list(map(str,weights))
+	ax.set_xticklabels((weights))
+	ax.set_xlabel('Capacidade das mochilas')
+	ax.set_ylabel('Tempo')
+	ax.set_title('Numero de Objetos {}'.format(400000))
+	plt.savefig('result/mochilasGraphTime',bbox_inches='tight')
+	print('result/mochilasGraphTime')
+
+	
+	spUp1 = TH1['spUp'].values.tolist()
+	spUp2 = TH2['spUp'].values.tolist()
+	spUp4 = TH4['spUp'].values.tolist()
+	spUp8 = TH8['spUp'].values.tolist()
+
+	mochilasGraphSpeedUp = pd.DataFrame({
+	 	'1 CPU' : spUp1,
+	 	'2 CPU' : spUp2,
+	 	'4 CPU' : spUp4,
+	 	'8 CPU' : spUp8
+	})
+
+		
+	mochilasGraphSpeedUp.plot(kind='bar', width = width)
+	ax = plt.gca()		
+	plt.xlim([-width, len(mochilasGraphSpeedUp['1 CPU'])-width])
+
+	ax.set_xticklabels((weights))
+	ax.set_xlabel('Capacidade das mochilas')
+	ax.set_ylabel('Speed Up')
+	ax.set_title('Numero de Objetos {}'.format(400000))
+	plt.savefig('result/mochilasGraphSpeedUp',bbox_inches='tight')
+	print('result/mochilasGraphSpeedUp')
+
+
+	eff1 = TH1['eff'].values.tolist()
+	eff2 = TH2['eff'].values.tolist()
+	eff4 = TH4['eff'].values.tolist()
+	eff8 = TH8['eff'].values.tolist()
+
+	mochilasGraphEff = pd.DataFrame({
+	 	'1 CPU' : eff1,
+	 	'2 CPU' : eff2,
+	 	'4 CPU' : eff4,
+	 	'8 CPU' : eff8
+	})
+
+		
+	mochilasGraphEff.plot(kind='bar', width = width)
+	ax = plt.gca()		
+	plt.xlim([-width, len(mochilasGraphEff['1 CPU'])-width])
+
+	ax.set_xticklabels((weights))
+	ax.set_xlabel('Capacidade das mochilas')
+	ax.set_ylabel('Eficiencia')
+	ax.set_title('Numero de Objetos {}'.format(400000))
+	plt.savefig('result/mochilasGraphEff',bbox_inches='tight')
+	print('result/mochilasGraphEff')
+
+
 		
 main()
 
